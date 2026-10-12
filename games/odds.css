@@ -1,0 +1,138 @@
+/* 1000 People: all selectors prefixed with .g-odds */
+.g-odds .od {
+  max-width: 560px; margin: 0 auto; padding: 4px 0 24px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.g-odds .od-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 26px; flex-wrap: wrap; }
+
+/* ---------- Question ---------- */
+.g-odds .od-q { display: flex; flex-direction: column; gap: 6px; }
+.g-odds .od-text { margin: 0; font-size: 15.5px; line-height: 1.5; color: var(--ink); }
+.g-odds .od-ask { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 18px; line-height: 1.3; }
+
+/* ---------- Town ---------- */
+.g-odds .od-town { min-width: 0; padding: 10px; display: flex; flex-direction: column; gap: 6px; cursor: default; }
+.g-odds .od-canvas-wrap { position: relative; width: 100%; min-width: 0; aspect-ratio: 40 / 25; overflow: hidden; }
+.g-odds .od-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.g-odds .od-caption {
+  margin: 0; min-height: 22px; text-align: center; font-size: 14px; font-weight: 600; color: var(--ink-2);
+}
+.g-odds .od-cap-in { animation: od-cap-in .3s cubic-bezier(.2,.8,.2,1.2); }
+@keyframes od-cap-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Guess slider ---------- */
+.g-odds .od-guess { display: flex; flex-direction: column; gap: 8px; transition: opacity .2s ease; }
+.g-odds .od-guess.is-locked { opacity: .6; }
+.g-odds .od-guess-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.g-odds .od-val { font-size: 30px; line-height: 1; color: var(--accent); }
+.g-odds .od-slider-row { display: flex; align-items: center; gap: 8px; }
+.g-odds .od-step { font-size: 22px; font-weight: 700; box-shadow: none; border: 1.5px solid var(--line); }
+.g-odds .od-step:disabled { opacity: .4; cursor: default; transform: none; }
+.g-odds .od-range {
+  --p: 50%;
+  flex: 1; min-width: 0; height: 44px; margin: 0; background: transparent; cursor: pointer;
+  -webkit-appearance: none; appearance: none; touch-action: pan-y;
+}
+.g-odds .od-range:focus { outline: none; }
+.g-odds .od-range:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 12px; }
+.g-odds .od-range::-webkit-slider-runnable-track {
+  height: 10px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent) var(--p), var(--line) var(--p));
+}
+.g-odds .od-range::-moz-range-track { height: 10px; border-radius: 999px; background: var(--line); }
+.g-odds .od-range::-moz-range-progress { height: 10px; border-radius: 999px; background: var(--accent); }
+.g-odds .od-range::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 30px; height: 30px; margin-top: -10px; border-radius: 50%;
+  background: var(--card); border: 3px solid var(--accent); box-shadow: var(--shadow);
+}
+.g-odds .od-range::-moz-range-thumb {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--card); border: 3px solid var(--accent); box-shadow: var(--shadow);
+}
+.g-odds .od-range:disabled { cursor: default; }
+.g-odds .od-scale {
+  display: flex; justify-content: space-between; padding: 0 52px; margin-top: -6px;
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+}
+
+/* ---------- Tree ---------- */
+.g-odds .od-tree { padding: 4px 0; }
+.g-odds .od-tree-in { display: flex; flex-direction: column; align-items: center; }
+.g-odds .od-tn {
+  display: inline-flex; flex-direction: column; align-items: center; min-width: 58px; max-width: 100%;
+  padding: 5px 8px; border-radius: 12px; border: 1.5px solid var(--card-border); background: var(--card);
+  box-shadow: var(--shadow); opacity: 0; transform: scale(.6);
+  transition: opacity .3s ease, transform .35s cubic-bezier(.2,.8,.2,1.3);
+}
+.g-odds .od-tn.is-on { opacity: 1; transform: none; }
+.g-odds .od-tn-n { font-family: var(--font-mono); font-weight: 700; font-size: 16px; line-height: 1.2; }
+.g-odds .od-tn-l { font-size: 11px; line-height: 1.2; color: var(--ink-3); text-align: center; overflow-wrap: anywhere; }
+.g-odds .od-tn--bad { border-color: var(--bad); background: var(--bad-soft); }
+.g-odds .od-tn--bad .od-tn-n { color: var(--bad); }
+.g-odds .od-tn--warn { border-color: var(--warn); background: var(--warn-soft); }
+.g-odds .od-tn--warn .od-tn-n { color: var(--warn); }
+.g-odds .od-tn--ok { border-color: var(--ok); background: var(--ok-soft); }
+.g-odds .od-tn--ok .od-tn-n { color: var(--ok); }
+.g-odds .od-tn--mute { box-shadow: none; }
+.g-odds .od-tn--mute .od-tn-n { color: var(--ink-2); }
+.g-odds .od-tn--hl { border-width: 2.5px; }
+
+.g-odds .od-kids { display: flex; width: 100%; position: relative; padding-top: 14px; opacity: 0; transition: opacity .3s ease; }
+.g-odds .od-kids.is-on { opacity: 1; }
+/* horizontal bar between first and last child centres, plus a stub up to the parent */
+.g-odds .od-kids::before {
+  content: ""; position: absolute; top: 7px; left: 25%; right: 25%; height: 2px; background: var(--line);
+}
+.g-odds .od-kids--1::before { display: none; }
+.g-odds .od-kids::after {
+  content: ""; position: absolute; top: 0; left: 50%; width: 2px; height: 7px; margin-left: -1px; background: var(--line);
+}
+.g-odds .od-kids--1::after { height: 14px; }
+.g-odds .od-branch {
+  flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; position: relative; padding: 0 2px;
+}
+.g-odds .od-kids:not(.od-kids--1) > .od-branch::before {
+  content: ""; position: absolute; top: -7px; left: 50%; width: 2px; height: 7px; margin-left: -1px; background: var(--line);
+}
+
+/* ---------- Reveal ---------- */
+.g-odds .od-reveal { display: flex; flex-direction: column; gap: 10px; }
+.g-odds .od-verdict, .g-odds .od-end { border-width: 2px; display: flex; flex-direction: column; gap: 10px; }
+.g-odds .od-verdict--ok { border-color: var(--ok); }
+.g-odds .od-verdict--bad { border-color: var(--bad); }
+.g-odds .od-room { display: flex; flex-direction: column; gap: 6px; }
+.g-odds .od-room-dots { display: flex; flex-wrap: wrap; gap: 3px; }
+.g-odds .od-d { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.g-odds .od-d--bad { background: var(--bad); }
+.g-odds .od-d--warn { background: var(--warn); }
+.g-odds .od-room-dots .od-d { animation: od-dot-in .3s ease both; }
+@keyframes od-dot-in { from { transform: scale(0); } to { transform: scale(1); } }
+.g-odds .od-room-key { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 13px; color: var(--ink-2); }
+.g-odds .od-eq {
+  margin: 0; text-align: center; font-family: var(--font-mono); font-size: 18px; font-weight: 700; color: var(--ink);
+}
+.g-odds .od-eq b { color: var(--accent); font-size: 24px; }
+
+.g-odds .od-compare { position: relative; height: 62px; margin: 0 22px; }
+.g-odds .od-track { position: absolute; left: 0; right: 0; top: 28px; height: 8px; border-radius: 999px; background: var(--line); }
+.g-odds .od-mark { position: absolute; top: 22px; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; border: 3px solid var(--card); box-shadow: var(--shadow); }
+.g-odds .od-mark span {
+  position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+}
+.g-odds .od-mark--you { background: var(--blue); }
+.g-odds .od-mark--you span { top: 20px; color: var(--blue); }
+.g-odds .od-mark--truth { background: var(--accent); animation: od-drop .5s cubic-bezier(.2,.8,.2,1.4) .15s both; }
+.g-odds .od-mark--truth span { bottom: 20px; color: var(--accent); }
+@keyframes od-drop { from { opacity: 0; transform: translateY(-16px) scale(.5); } to { opacity: 1; transform: none; } }
+
+.g-odds .od-title { margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 1.25; }
+.g-odds .od-take { margin: 0; font-size: 15px; line-height: 1.45; }
+.g-odds .od-points { display: flex; flex-wrap: wrap; gap: 6px; }
+.g-odds .od-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 14.5px; }
+.g-odds .od-list li { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+@media (min-width: 600px) {
+  .g-odds .od-ask { font-size: 20px; }
+  .g-odds .od-tn-n { font-size: 18px; }
+  .g-odds .od-tn-l { font-size: 12px; }
+}

@@ -11,6 +11,12 @@ A free daily brain workout: seven quick games, about 12 minutes. Each game train
 | 5 | 🗺️ Lost in Town | Mental maps | GPS use and spatial memory (Dahmani & Bohbot 2020) |
 | 6 | 💡 Only You | Original ideas | AI homogenises ideas (Doshi & Hauser 2024) |
 | 7 | 🎤 Mic Drop | Thinking on your feet | Ownership and opinion effects of AI writing (Kosmyna et al. 2025, Jakesch et al. 2023) |
+| 8 | 🧪 Prebunk | Seeing through manipulation | Inoculation games (Roozenbeek & van der Linden 2019; Roozenbeek et al. 2022) |
+| 9 | 👥 1000 People | Understanding risk | Natural frequencies (Hoffrage et al. 2015) |
+| 10 | 🛒 Better Deal | Money maths | Financial education meta-analysis (Kaiser et al. 2022) |
+| 11 | 🚨 Scam or Legit? | Spotting scams | Game-based anti-phishing training (Sheng et al. 2007) |
+
+Games are grouped as **AI-proof brain**, **Life skills** and **Cool skills**. Each day's workout is a deterministic rotation of 5 games, one from each category first. Every game is also playable from `#/library`.
 
 Mic Drop scores a 60-second impromptu talk with six fixed formulas, so the same transcript and timing always get the same score:
 

@@ -1,0 +1,220 @@
+/* Scam or Legit?: all selectors prefixed with .g-scam */
+.g-scam .sc-app {
+  max-width: 520px; margin: 0 auto; padding: 4px 0 24px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.g-scam .sc-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 26px; }
+.g-scam .sc-chips { display: inline-flex; gap: 6px; }
+
+/* ---------- Phone ---------- */
+.g-scam .sc-stage { display: flex; justify-content: center; padding: 2px 0; }
+.g-scam .sc-phone {
+  --sw-scam: 0; --sw-legit: 0;
+  position: relative; width: 100%; max-width: 380px; min-height: 360px;
+  background: var(--surface); border: 7px solid var(--ink); border-radius: 34px;
+  box-shadow: var(--shadow-lift); overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none;
+  transition: transform .25s cubic-bezier(.2,.8,.2,1.2), border-color .2s ease;
+  display: flex; flex-direction: column;
+}
+.g-scam .sc-phone.is-dragging { transition: none; cursor: grabbing; }
+.g-scam .sc-phone.is-judged-scam { border-color: var(--bad); }
+.g-scam .sc-phone.is-judged-legit { border-color: var(--ok); }
+.g-scam .sc-notch {
+  position: absolute; left: 50%; top: 0; width: 90px; height: 18px; transform: translateX(-50%);
+  background: var(--ink); border-radius: 0 0 14px 14px; z-index: 4;
+}
+.g-scam .sc-status {
+  display: flex; justify-content: space-between; align-items: center; padding: 6px 18px 4px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--ink); background: var(--surface); flex: none;
+}
+.g-scam .sc-icons { display: inline-flex; align-items: center; gap: 6px; }
+.g-scam .sc-sig { display: inline-flex; align-items: flex-end; gap: 2px; height: 10px; }
+.g-scam .sc-sig b { display: block; width: 3px; background: var(--ink); border-radius: 1px; }
+.g-scam .sc-sig b:nth-child(1) { height: 3px; }
+.g-scam .sc-sig b:nth-child(2) { height: 5px; }
+.g-scam .sc-sig b:nth-child(3) { height: 7px; }
+.g-scam .sc-sig b:nth-child(4) { height: 10px; }
+.g-scam .sc-batt {
+  position: relative; display: block; width: 20px; height: 10px; border: 1.5px solid var(--ink); border-radius: 3px;
+}
+.g-scam .sc-batt::after { content: ""; position: absolute; left: 1px; top: 1px; bottom: 1px; width: 70%; background: var(--ok); border-radius: 1px; }
+
+/* notification banner */
+.g-scam .sc-banner {
+  position: absolute; left: 10px; right: 10px; top: 28px; z-index: 5;
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+  background: var(--card); border: 1.5px solid var(--card-border); border-radius: 16px; box-shadow: var(--shadow-lift);
+  font-size: 13px; line-height: 1.3; color: var(--ink-2);
+}
+.g-scam .sc-banner b { color: var(--ink); }
+.g-scam .sc-banner-text span { display: inline-block; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: bottom; }
+.g-scam .sc-banner-icon {
+  flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px;
+  background: var(--accent-soft); font-size: 18px; font-weight: 700; color: var(--accent);
+}
+.g-scam .sc-banner-in { animation: sc-banner-in .4s cubic-bezier(.2,.8,.2,1.2); }
+@keyframes sc-banner-in { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: none; } }
+
+.g-scam .sc-screen { position: relative; flex: 1; display: flex; flex-direction: column; min-height: 320px; background: var(--bg); }
+.g-scam .sc-slide-in { animation: sc-slide-in .34s cubic-bezier(.2,.8,.2,1.1); }
+@keyframes sc-slide-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+.g-scam .sc-idle { flex: 1; background: var(--bg); }
+
+/* swipe stamps */
+.g-scam .sc-swipe {
+  position: absolute; top: 70px; z-index: 6; pointer-events: none;
+  padding: 4px 10px; border: 3px solid currentColor; border-radius: 8px; background: var(--card);
+  font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: .04em;
+}
+.g-scam .sc-swipe--scam { right: 14px; color: var(--bad); opacity: var(--sw-scam); transform: rotate(10deg); }
+.g-scam .sc-swipe--legit { left: 14px; color: var(--ok); opacity: var(--sw-legit); transform: rotate(-10deg); }
+
+/* app bars */
+.g-scam .sc-app-bar {
+  display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 12px;
+  background: var(--card); border-bottom: 1.5px solid var(--line); font-size: 14px; color: var(--ink-2); flex: none;
+}
+.g-scam .sc-app-bar--whatsapp { background: var(--ok-soft); }
+.g-scam .sc-app-bar--upi { background: var(--blue-soft); }
+.g-scam .sc-app-bar--email, .g-scam .sc-app-bar--call, .g-scam .sc-app-bar--upi { justify-content: space-between; }
+.g-scam .sc-app-name { font-weight: 700; color: var(--ink); }
+.g-scam .sc-thread-name { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.g-scam .sc-thread-name b { color: var(--ink); overflow-wrap: anywhere; font-size: 14.5px; }
+.g-scam .sc-sub { font-size: 11.5px; color: var(--ink-3); }
+.g-scam .sc-tag {
+  align-self: flex-start; margin-top: 2px; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;
+  background: var(--warn-soft); color: var(--warn);
+}
+.g-scam .sc-tag--ok { background: var(--ok-soft); color: var(--ok); }
+.g-scam .sc-avatar {
+  flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--board); border: 1.5px solid var(--line); font-weight: 700; color: var(--ink-2); font-size: 15px;
+}
+.g-scam .sc-avatar--lg { width: 56px; height: 56px; font-size: 24px; }
+.g-scam .sc-time { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); }
+
+/* chat thread (sms / whatsapp) */
+.g-scam .sc-thread { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.g-scam .sc-thread--whatsapp {
+  background-color: var(--board);
+  background-image: radial-gradient(var(--grid) 1.2px, transparent 1.2px); background-size: 16px 16px;
+}
+.g-scam .sc-day { align-self: center; padding: 2px 10px; border-radius: 999px; background: var(--surface); }
+.g-scam .sc-msg {
+  position: relative; align-self: flex-start; max-width: 92%;
+  background: var(--card); border: 1.5px solid var(--card-border); border-radius: 18px 18px 18px 6px;
+  padding: 10px 12px 8px; box-shadow: var(--shadow);
+}
+.g-scam .sc-thread--sms .sc-msg { background: var(--surface); }
+.g-scam .sc-msg .sc-time { display: block; text-align: right; margin-top: 4px; }
+
+/* bodies */
+.g-scam .sc-body { font-size: 15px; line-height: 1.5; color: var(--ink); overflow-wrap: anywhere; }
+.g-scam .sc-body p { margin: 0 0 6px; }
+.g-scam .sc-body p:last-child { margin-bottom: 0; }
+
+/* email */
+.g-scam .sc-email { flex: 1; padding: 14px; background: var(--card); display: flex; flex-direction: column; gap: 10px; }
+.g-scam .sc-subject { margin: 0; font-family: var(--font-display); font-size: 18px; line-height: 1.3; }
+.g-scam .sc-from { display: flex; align-items: center; gap: 10px; }
+.g-scam .sc-from-text { flex: 1; min-width: 0; display: flex; flex-direction: column; font-size: 13.5px; line-height: 1.3; }
+.g-scam .sc-addr { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3); overflow-wrap: anywhere; }
+
+/* upi */
+.g-scam .sc-upi { flex: 1; padding: 18px 14px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; background: var(--card); }
+.g-scam .sc-upi-tag { font-weight: 700; font-size: 13px; padding: 4px 12px; border-radius: 999px; background: var(--blue-soft); color: var(--blue); }
+.g-scam .sc-upi--collect .sc-upi-tag { background: var(--warn-soft); color: var(--warn); }
+.g-scam .sc-upi--in .sc-upi-tag { background: var(--ok-soft); color: var(--ok); }
+.g-scam .sc-upi-amt { font-size: 38px; line-height: 1.1; color: var(--ink); }
+.g-scam .sc-upi-from { font-size: 13.5px; color: var(--ink-2); overflow-wrap: anywhere; }
+.g-scam .sc-body--upi {
+  width: 100%; text-align: left; padding: 10px 12px; border-radius: 12px; background: var(--board); border: 1.5px dashed var(--line); font-size: 14.5px;
+}
+.g-scam .sc-upi-btns { display: flex; gap: 10px; width: 100%; margin-top: 4px; pointer-events: none; opacity: .55; }
+.g-scam .sc-upi-btns span {
+  flex: 1; padding: 8px; border-radius: 999px; font-weight: 700; font-size: 14px; border: 1.5px solid var(--line); color: var(--ink-2);
+}
+.g-scam .sc-upi-btns span:last-child { background: var(--blue); color: var(--card); border-color: var(--blue); }
+
+/* call transcript */
+.g-scam .sc-call { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 12px; background: var(--card); }
+.g-scam .sc-caller { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; overflow-wrap: anywhere; }
+.g-scam .sc-caller .sc-tag { align-self: center; }
+.g-scam .sc-transcript { display: flex; flex-direction: column; gap: 8px; }
+.g-scam .sc-tline { display: flex; flex-direction: column; gap: 2px; max-width: 92%; }
+.g-scam .sc-tline--you { align-self: flex-end; text-align: right; }
+.g-scam .sc-who { font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.g-scam .sc-said {
+  padding: 8px 12px; border-radius: 14px; background: var(--board); border: 1.5px solid var(--line);
+  font-size: 14.5px; line-height: 1.45; overflow-wrap: anywhere;
+}
+.g-scam .sc-tline--you .sc-said { background: var(--blue-soft); border-color: transparent; text-align: left; }
+
+/* ---------- Chunks: normal text until the flag hunt ---------- */
+.g-scam .sc-chunk { border-radius: 6px; transition: background-color .15s ease, box-shadow .15s ease; }
+.g-scam .sc-num { display: none; }
+
+.g-scam .sc-phone.is-flagging .sc-body p,
+.g-scam .sc-phone.is-flagging .sc-said { display: flex; flex-direction: column; gap: 6px; }
+.g-scam .sc-phone.is-flagging .sc-chunk { display: block; color: var(--ink-3); }
+.g-scam .sc-phone.is-flagging .sc-chunk.is-tap {
+  position: relative; display: flex; align-items: flex-start; gap: 8px; min-height: 44px; padding: 9px 10px;
+  border: 2px dashed var(--accent); background: var(--accent-soft); color: var(--ink); cursor: pointer; text-align: left;
+  animation: sc-wiggle 1.6s ease-in-out infinite;
+}
+.g-scam .sc-phone.is-flagging .sc-chunk.is-tap:hover { background: var(--bad-soft); border-style: solid; }
+.g-scam .sc-phone.is-flagging .sc-chunk.is-tap:active { transform: scale(.98); }
+.g-scam .sc-chunk:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.g-scam .sc-phone.is-flagging .sc-num {
+  display: grid; place-items: center; flex: none; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--accent); color: var(--accent-ink); font-style: normal; font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+}
+@keyframes sc-wiggle { 0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft); } 50% { box-shadow: 0 0 0 4px var(--accent-soft); } }
+
+/* reveal: the real red flag */
+.g-scam .sc-chunk.is-flag {
+  background: var(--bad-soft); box-shadow: 0 0 0 2px var(--bad); color: var(--ink);
+  padding: 1px 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.g-scam .sc-chunk.is-flag::before { content: "🚩 "; }
+.g-scam .sc-chunk.is-found { animation: sc-found .6s cubic-bezier(.2,.8,.2,1.3); }
+@keyframes sc-found { 40% { box-shadow: 0 0 0 6px var(--bad-soft), 0 0 0 2px var(--bad); } }
+.g-scam .sc-chunk.is-wrongpick { text-decoration: line-through; text-decoration-color: var(--ink-3); text-decoration-thickness: 2px; }
+
+/* ---------- Controls ---------- */
+.g-scam .sc-hint { margin: 0; min-height: 20px; font-size: 13px; color: var(--ink-3); text-align: center; }
+.g-scam .sc-hint-flag { color: var(--accent); font-size: 15px; }
+.g-scam .sc-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g-scam .sc-btn { min-height: 60px; font-size: 18px; border: 2px solid transparent; padding: 0 12px; }
+.g-scam .sc-btn-emoji { font-size: 22px; }
+.g-scam .sc-btn--scam { background: var(--bad-soft); color: var(--bad); border-color: var(--bad); }
+.g-scam .sc-btn--legit { background: var(--ok-soft); color: var(--ok); border-color: var(--ok); }
+.g-scam .sc-btn:not(:disabled):hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.g-scam .sc-btn:disabled { opacity: .45; cursor: default; }
+.g-scam .sc-btn:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+/* ---------- Reveal ---------- */
+.g-scam .sc-reveal { display: flex; flex-direction: column; gap: 10px; }
+.g-scam .sc-verdict { border-width: 2px; display: flex; flex-direction: column; gap: 8px; }
+.g-scam .sc-verdict--ok { border-color: var(--ok); }
+.g-scam .sc-verdict--bad { border-color: var(--bad); }
+.g-scam .sc-title { margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 1.25; }
+.g-scam .sc-flagline { margin: 0; display: flex; flex-direction: column; gap: 2px; font-weight: 600; }
+.g-scam .sc-wolf { margin: 0; padding: 8px 10px; border-radius: 10px; background: var(--warn-soft); color: var(--warn); font-weight: 600; font-size: 14px; }
+.g-scam .sc-lesson { margin: 0; font-size: 15.5px; line-height: 1.45; }
+.g-scam .sc-points { display: flex; flex-wrap: wrap; gap: 6px; }
+.g-scam .sc-points:empty { display: none; }
+
+/* ---------- End ---------- */
+.g-scam .sc-endcard { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; padding: 22px 16px; border-width: 2px; border-color: var(--gold); }
+.g-scam .sc-end-emoji { font-size: 56px; line-height: 1.1; animation: sc-bob 1.4s ease-in-out infinite; }
+@keyframes sc-bob { 50% { transform: translateY(-6px); } }
+.g-scam .sc-end-name { margin: 0; font-family: var(--font-display); font-size: 28px; }
+.g-scam .sc-end-line { margin: 0; color: var(--ink-2); }
+.g-scam .sc-end-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 6px; }
+
+@media (max-width: 380px) {
+  .g-scam .sc-phone { border-width: 5px; border-radius: 28px; }
+  .g-scam .sc-body, .g-scam .sc-said { font-size: 14.5px; }
+  .g-scam .sc-btn { font-size: 17px; }
+}
