@@ -1,0 +1,75 @@
+/* Spin Doctor (rotate) */
+.g-rotate { display: flex; flex-direction: column; gap: 8px; max-width: 520px; margin: 0 auto; padding-bottom: 16px; }
+
+.g-rotate-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 28px; }
+.g-rotate-streak { font-family: var(--font-mono); font-variant-numeric: tabular-nums; transition: background-color .2s ease, color .2s ease; }
+.g-rotate-streak.is-hot { background: var(--accent-soft); color: var(--accent); }
+.g-rotate-timer { padding-top: 14px; }
+.g-rotate-timer .timer { margin: 0 0 4px; }
+
+.g-rotate-stage {
+  position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+.g-rotate-card {
+  position: relative; aspect-ratio: 1; min-width: 0; border-radius: var(--radius); overflow: hidden;
+  background: var(--card); border: 2px solid var(--card-border); box-shadow: var(--shadow);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.g-rotate-svg {
+  position: absolute; inset: 3%; width: 94%; height: 94%; overflow: visible;
+  shape-rendering: geometricPrecision;
+}
+.g-rotate-svg polygon { stroke-width: 0.045; stroke-linejoin: round; }
+.g-rotate-tag {
+  position: absolute; left: 8px; top: 6px; z-index: 1;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--ink-3);
+}
+.g-rotate-in .g-rotate-svg { animation: g-rotate-in .22s cubic-bezier(.2,.8,.2,1.2); }
+@keyframes g-rotate-in { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+
+.g-rotate-stage.is-right .g-rotate-right { border-color: var(--ok); box-shadow: 0 0 0 4px var(--ok-soft), var(--shadow); }
+.g-rotate-stage.is-wrong .g-rotate-right { border-color: var(--bad); box-shadow: 0 0 0 4px var(--bad-soft), var(--shadow); }
+.g-rotate-stage.is-same .g-rotate-card { border-color: var(--ok); box-shadow: 0 0 0 4px var(--ok-soft), var(--shadow); }
+.g-rotate-stage.is-mirror .g-rotate-card { border-color: var(--blue); box-shadow: 0 0 0 4px var(--blue-soft), var(--shadow); }
+
+/* Dashed mirror line between the two cards, shown when B ends up as A's reflection. */
+.g-rotate-mirrorline {
+  position: absolute; left: 50%; top: -6px; bottom: -6px; width: 0; z-index: 2; pointer-events: none;
+  border-left: 3px dashed var(--blue); transform: translateX(-50%) scaleY(0); transform-origin: center;
+  transition: transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.g-rotate-stage.is-mirror .g-rotate-mirrorline { transform: translateX(-50%) scaleY(1); }
+
+.g-rotate-banner {
+  position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; text-align: center; padding: 12px; border-radius: var(--radius);
+  background: var(--surface); border: 2px solid var(--line); box-shadow: var(--shadow-lift);
+}
+.g-rotate-banner b { font-family: var(--font-mono); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.g-rotate-banner span { font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 8vw, 36px); line-height: 1.1; }
+.g-rotate-banner small { font-size: 14px; color: var(--ink-2); }
+
+.g-rotate-msg {
+  margin: 0; min-height: 44px; display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 14.5px; color: var(--ink-2); padding: 0 4px; line-height: 1.3;
+}
+.g-rotate-msg--good { color: var(--ok); font-weight: 700; }
+.g-rotate-msg--bad { color: var(--bad); font-weight: 700; }
+.g-rotate-msg--teach { color: var(--ink); font-weight: 700; }
+
+.g-rotate-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.g-rotate-btn {
+  min-height: 60px; padding: 0 10px; font-size: 17px; border: 2px solid var(--line); background: var(--card); color: var(--ink);
+  box-shadow: var(--shadow); touch-action: manipulation;
+}
+.g-rotate-btn:hover:not(:disabled) { border-color: var(--ink-3); }
+.g-rotate-btn:disabled { opacity: .55; cursor: default; }
+.g-rotate-same:not(:disabled) { border-color: var(--ok); }
+.g-rotate-mirror:not(:disabled) { border-color: var(--blue); }
+.g-rotate-ico { font-size: 20px; line-height: 1; }
+.g-rotate-btn kbd {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--ink-3);
+  border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px;
+}
+@media (hover: none) { .g-rotate-btn kbd { display: none; } }

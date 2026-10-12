@@ -1,0 +1,193 @@
+/* Lifesaver: all selectors prefixed with .g-lifesaver */
+.g-lifesaver .ls-app {
+  max-width: 520px; margin: 0 auto; padding: 4px 0 24px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.g-lifesaver .ls-rhythm, .g-lifesaver .ls-signs { display: flex; flex-direction: column; gap: 12px; }
+.g-lifesaver .ls-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 26px; }
+
+/* ---------- Ambulance ETA ---------- */
+.g-lifesaver .ls-eta { display: flex; flex-direction: column; gap: 4px; }
+.g-lifesaver .ls-eta-track {
+  position: relative; height: 12px; border-radius: 999px; background: var(--line); margin: 14px 26px 0 14px;
+}
+.g-lifesaver .ls-eta-fill {
+  position: absolute; inset: 0; border-radius: 999px; background: var(--blue);
+  transform: scaleX(0); transform-origin: left center;
+}
+.g-lifesaver .ls-amb {
+  position: absolute; left: 0; bottom: 2px; font-size: 26px; line-height: 1;
+  transform: translateX(-50%) scaleX(-1); transition: left .1s linear;
+}
+.g-lifesaver .ls-hosp { position: absolute; right: -24px; bottom: 0; font-size: 20px; line-height: 1; }
+.g-lifesaver .ls-eta-label {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--ink-2); text-align: center;
+}
+
+/* ---------- Chest target ---------- */
+.g-lifesaver .ls-stage {
+  position: relative; display: grid; place-items: center; height: 250px; margin: 2px 0;
+}
+.g-lifesaver .ls-ring {
+  position: absolute; left: 50%; top: 50%; width: 220px; height: 220px; margin: -110px 0 0 -110px;
+  border-radius: 50%; border: 4px solid var(--accent); opacity: 0; pointer-events: none;
+  transition: opacity 1.6s ease;
+}
+.g-lifesaver .ls-ring--2 { border-width: 2px; }
+.g-lifesaver .ls-stage.is-guided .ls-ring { opacity: .35; }
+.g-lifesaver .ls-stage.is-solo .ls-ring, .g-lifesaver .ls-stage.is-done .ls-ring { opacity: 0; }
+.g-lifesaver .ls-ring.ls-beat { animation: ls-beat .5s ease-out; }
+@keyframes ls-beat {
+  0% { transform: scale(.92); opacity: .9; }
+  100% { transform: scale(1.16); opacity: 0; }
+}
+
+.g-lifesaver .ls-chest {
+  position: relative; width: 210px; height: 210px; border-radius: 50%; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  background: radial-gradient(circle at 50% 42%, var(--card) 0 38%, var(--accent-soft) 70%, var(--board) 100%);
+  border: 4px solid var(--accent); box-shadow: var(--shadow-lift);
+  touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; transition: border-color .15s ease, box-shadow .15s ease;
+}
+.g-lifesaver .ls-chest:focus-visible { outline: 3px solid var(--blue); outline-offset: 6px; }
+.g-lifesaver .ls-chest.is-good { border-color: var(--ok); }
+.g-lifesaver .ls-chest:disabled { cursor: default; opacity: .75; }
+.g-lifesaver .ls-sternum {
+  position: absolute; left: 50%; top: 22%; bottom: 22%; width: 10px; margin-left: -5px;
+  border-radius: 999px; background: var(--line); opacity: .7;
+}
+.g-lifesaver .ls-heart { position: relative; font-size: 62px; line-height: 1; }
+.g-lifesaver .ls-push {
+  position: relative; font-family: var(--font-mono); font-size: 13px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent);
+}
+.g-lifesaver .ls-chest.is-good .ls-push { color: var(--ok); }
+.g-lifesaver .ls-chest.is-press { animation: ls-press .18s cubic-bezier(.3,.7,.3,1.4); }
+.g-lifesaver .ls-chest.is-press .ls-heart { animation: ls-heart .18s ease-out; }
+@keyframes ls-press {
+  0% { transform: scale(1, 1); }
+  35% { transform: scale(1.07, .86); box-shadow: var(--shadow); }
+  100% { transform: scale(1, 1); }
+}
+@keyframes ls-heart {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- BPM meter ---------- */
+.g-lifesaver .ls-meter {
+  background: var(--card); border: 1.5px solid var(--card-border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 10px 14px 26px;
+}
+.g-lifesaver .ls-bpm-row { display: flex; align-items: baseline; gap: 6px; min-height: 40px; }
+.g-lifesaver .ls-bpm { font-size: 34px; line-height: 1.1; min-width: 2.2ch; color: var(--ink); transition: color .15s ease; }
+.g-lifesaver .ls-bpm-unit { font-size: 13px; color: var(--ink-3); }
+.g-lifesaver .ls-status { margin-left: auto; font-weight: 700; font-size: 15px; color: var(--ink-2); }
+.g-lifesaver .ls-meter.is-good .ls-bpm, .g-lifesaver .ls-meter.is-good .ls-status { color: var(--ok); }
+.g-lifesaver .ls-meter.is-slow .ls-bpm, .g-lifesaver .ls-meter.is-slow .ls-status { color: var(--warn); }
+.g-lifesaver .ls-meter.is-fast .ls-bpm, .g-lifesaver .ls-meter.is-fast .ls-status { color: var(--bad); }
+.g-lifesaver .ls-gauge {
+  position: relative; height: 14px; margin-top: 8px; border-radius: 999px; background: var(--line);
+}
+.g-lifesaver .ls-zone {
+  position: absolute; top: 0; bottom: 0; background: var(--ok); opacity: .8; border-radius: 4px;
+}
+.g-lifesaver .ls-needle {
+  position: absolute; top: -6px; width: 6px; height: 26px; margin-left: -3px; border-radius: 3px;
+  background: var(--ink); box-shadow: var(--shadow); transition: left .12s ease-out;
+}
+.g-lifesaver .ls-tick {
+  position: absolute; top: 18px; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--ink-3);
+}
+
+.g-lifesaver .ls-coach { margin: 0; text-align: center; font-size: 15px; color: var(--ink-2); min-height: 3em; }
+.g-lifesaver .ls-coach b { color: var(--ink); }
+
+.g-lifesaver .ls-fact {
+  background: var(--gold-soft); border: 1.5px solid var(--gold); border-radius: var(--radius);
+  padding: 10px 14px; font-size: 14.5px; line-height: 1.45; color: var(--ink);
+}
+.g-lifesaver .ls-fact-in { animation: ls-fact-in .35s cubic-bezier(.2,.8,.2,1.2); }
+@keyframes ls-fact-in { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
+
+/* ---------- Rhythm result ---------- */
+.g-lifesaver .ls-rres { display: flex; flex-direction: column; gap: 12px; }
+.g-lifesaver .ls-rcard { display: flex; flex-direction: column; gap: 10px; }
+.g-lifesaver .ls-rtitle, .g-lifesaver .ls-why-title {
+  margin: 0; font-family: var(--font-display); font-size: 21px; line-height: 1.25;
+}
+.g-lifesaver .ls-rstats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; text-align: center; }
+.g-lifesaver .ls-rstats > div {
+  display: flex; flex-direction: column; gap: 2px; padding: 8px 4px; border-radius: 12px; background: var(--board);
+}
+.g-lifesaver .ls-rstats .big-num { font-size: 24px; line-height: 1.15; }
+.g-lifesaver .ls-rstats .label { font-size: 10px; letter-spacing: .08em; }
+.g-lifesaver .ls-rz { background: var(--ok-soft) !important; }
+.g-lifesaver .ls-rz .big-num { color: var(--ok); }
+.g-lifesaver .ls-rline { margin: 0; font-size: 15px; color: var(--ink-2); }
+.g-lifesaver .ls-points { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ---------- Spot the signs ---------- */
+.g-lifesaver .ls-vig {
+  position: relative; padding: 16px 16px 16px 58px; border-left: 5px solid var(--accent);
+}
+.g-lifesaver .ls-vig-icon { position: absolute; left: 14px; top: 14px; font-size: 28px; line-height: 1; }
+.g-lifesaver .ls-vig-text { margin: 0; font-family: var(--font-display); font-size: 19px; line-height: 1.4; color: var(--ink); }
+.g-lifesaver .ls-slide-in { animation: ls-slide-in .34s cubic-bezier(.2,.8,.2,1.1); }
+@keyframes ls-slide-in { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+.g-lifesaver .ls-q { margin: 2px 0 0; font-weight: 700; font-size: 15px; color: var(--ink-2); }
+.g-lifesaver .ls-opts { display: flex; flex-direction: column; gap: 8px; }
+.g-lifesaver .ls-opt {
+  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 54px; padding: 10px 14px;
+  text-align: left; font-size: 15.5px; font-weight: 600; line-height: 1.35; cursor: pointer;
+  background: var(--card); border: 1.5px solid var(--card-border); border-radius: var(--radius); box-shadow: var(--shadow);
+  transition: transform .12s ease, border-color .12s ease, background-color .15s ease, opacity .15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.g-lifesaver .ls-opt:hover:not(:disabled) { border-color: var(--accent); }
+.g-lifesaver .ls-opt:active:not(:disabled) { transform: scale(.98); }
+.g-lifesaver .ls-opt:disabled { cursor: default; }
+.g-lifesaver .ls-opt-key {
+  flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--board); border: 1.5px solid var(--line);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--ink-3);
+}
+.g-lifesaver .ls-opts:has(.is-picked) .ls-opt:not(.is-picked):not(.is-right) { opacity: .5; }
+.g-lifesaver .ls-opt.is-picked { border-color: var(--blue); background: var(--blue-soft); }
+.g-lifesaver .ls-opt.is-right { border-color: var(--ok); background: var(--ok-soft); opacity: 1; }
+.g-lifesaver .ls-opt.is-right .ls-opt-key { background: var(--ok); border-color: var(--ok); color: var(--card); }
+.g-lifesaver .ls-opt.is-wrong { border-color: var(--bad); background: var(--bad-soft); }
+.g-lifesaver .ls-opt.is-wrong .ls-opt-key { background: var(--bad); border-color: var(--bad); color: var(--card); }
+
+.g-lifesaver .ls-reveal { display: flex; flex-direction: column; gap: 12px; }
+.g-lifesaver .ls-why { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; border-left: 5px solid var(--ok); }
+.g-lifesaver .ls-why--bad { border-left-color: var(--bad); }
+.g-lifesaver .ls-why-text { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink); }
+
+/* ---------- End ---------- */
+.g-lifesaver .ls-endcard { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding: 20px 16px; }
+.g-lifesaver .ls-end-emoji { font-size: 54px; line-height: 1.1; }
+.g-lifesaver .ls-end-name { margin: 0; font-family: var(--font-display); font-size: 26px; }
+.g-lifesaver .ls-endcard .ls-points { justify-content: center; }
+.g-lifesaver .ls-remember {
+  margin-top: 6px; padding: 10px 12px; border-radius: 12px; background: var(--board); text-align: left;
+  font-size: 14px; line-height: 1.5; color: var(--ink-2);
+}
+.g-lifesaver .ls-remember p { margin: 0 0 6px; }
+.g-lifesaver .ls-remember p:last-child { margin: 0; }
+.g-lifesaver .ls-remember b { color: var(--ink); }
+
+.g-lifesaver .ls-disclaimer {
+  margin: 4px 0 0; padding: 8px 12px; border-radius: 12px; background: var(--warn-soft); color: var(--warn);
+  font-size: 13px; font-weight: 600; text-align: center;
+}
+
+@media (max-width: 380px) {
+  .g-lifesaver .ls-stage { height: 226px; }
+  .g-lifesaver .ls-chest { width: 190px; height: 190px; }
+  .g-lifesaver .ls-ring { width: 200px; height: 200px; margin: -100px 0 0 -100px; }
+  .g-lifesaver .ls-vig-text { font-size: 17.5px; }
+}
