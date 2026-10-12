@@ -1,6 +1,6 @@
 # Brain Gym game module spec
 
-Brain Gym is a static site (plain HTML/CSS/JS, no build, no frameworks, no npm). A daily "workout" runs six short games. Each game trains one skill that research shows heavy AI use weakens. **Fun comes first**: every game needs a hook, game feel (sounds, animations, pop-ups), escalation and a satisfying ending.
+Brain Gym is a static site (plain HTML/CSS/JS, no build, no frameworks, no npm). Each day's "workout" is a rotating set of 5 games picked from a growing library. Every game is also playable from the library at any time. Each game trains one skill that research shows heavy AI use weakens. **Fun comes first**: every game needs a hook, game feel (sounds, animations, pop-ups), escalation and a satisfying ending.
 
 ## Files
 
@@ -26,6 +26,7 @@ BG.registerGame({
   name: 'Catch the Bot',
   emoji: '🕵️',
   skill: 'Spotting AI mistakes',  // short skill label shown on cards and stats
+  category: 'brain',              // 'brain' (AI-proof brain) | 'life' (life skills) | 'cool' (cool skills)
   tagline: 'The bot is confident. The bot is wrong. Find where.',
   howTo: ['Read the bot\'s answer…', 'Tap the line…', 'Bet on…'],   // 2–4 short lines
   science: 'Radiologists who trusted a wrong AI went from 82% to 45% accuracy (Dratsch et al., Radiology 2023).',

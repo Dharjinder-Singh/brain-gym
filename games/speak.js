@@ -575,6 +575,7 @@
     name: 'Mic Drop',
     emoji: '🎤',
     skill: 'Thinking on your feet',
+    category: 'life',
     tagline: 'One topic. 15 seconds to think. 60 seconds to talk.',
     howTo: [
       'A random topic lands. You get 15 seconds to prepare.',

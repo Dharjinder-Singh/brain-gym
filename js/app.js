@@ -3,11 +3,39 @@
   'use strict';
 
   const ORDER = ['datewise', 'catchbot', 'recall', 'digits', 'mentalmap', 'onlyyou', 'speak'];
+  const WORKOUT_SIZE = 5;
+  const CATEGORIES = [
+    { id: 'brain', name: 'AI-proof brain', emoji: '🧠', blurb: 'Skills that heavy AI use quietly weakens.' },
+    { id: 'life', name: 'Life skills', emoji: '🧭', blurb: 'Everyday smarts: money, safety, people, decisions.' },
+    { id: 'cool', name: 'Cool skills', emoji: '✨', blurb: 'Five minutes a day, and one day you just can.' },
+  ];
   const view = document.getElementById('view');
   const today = BG.today();
   let active = null; // { destroy() } for the running game
 
-  const games = () => ORDER.map((id) => BG.games[id]).filter(Boolean);
+  // Every registered game, in ORDER first, then any others in registration order.
+  const games = () => {
+    const ids = ORDER.concat(Object.keys(BG.games).filter((id) => !ORDER.includes(id)));
+    return ids.map((id) => BG.games[id]).filter(Boolean);
+  };
+  const catOf = (g) => g.category || 'brain';
+
+  // Today's workout: a deterministic rotating set, one from each category first.
+  function workoutGames(n) {
+    const all = games();
+    if (all.length <= WORKOUT_SIZE) return all;
+    const shuffled = BG.shuffle(all, BG.rng(BG.hash(`workout:${n}`)));
+    const picked = [];
+    CATEGORIES.forEach((c) => {
+      const g = shuffled.find((x) => catOf(x) === c.id && !picked.includes(x));
+      if (g) picked.push(g);
+    });
+    for (const g of shuffled) {
+      if (picked.length >= WORKOUT_SIZE) break;
+      if (!picked.includes(g)) picked.push(g);
+    }
+    return picked.sort((a, b) => all.indexOf(a) - all.indexOf(b));
+  }
 
   // ---------- Persistence ----------
   function dayRecord(n) {
@@ -17,7 +45,7 @@
   function saveResult(n, id, result) {
     const rec = dayRecord(n);
     rec.results[id] = result;
-    const complete = games().every((g) => rec.results[g.id]);
+    const complete = workoutGames(n).every((g) => rec.results[g.id]);
     if (complete && !rec.completed) {
       rec.completed = true;
       bumpStreak(n);
@@ -86,18 +114,19 @@
     if (page === 'done') return renderDone();
     if (page === 'stats') return renderStats();
     if (page === 'science') return renderScience();
+    if (page === 'library') return renderLibrary();
     return renderHome();
   }
   window.addEventListener('hashchange', route);
 
   // ---------- Home ----------
   function nextGame(rec) {
-    return games().find((g) => !rec.results[g.id]);
+    return workoutGames(today).find((g) => !rec.results[g.id]);
   }
 
   function renderHome() {
     const rec = dayRecord(today);
-    const list = games();
+    const list = workoutGames(today);
     const done = list.filter((g) => rec.results[g.id]).length;
     const total = list.reduce((sum, g) => sum + (rec.results[g.id] ? rec.results[g.id].score : 0), 0);
     const next = nextGame(rec);
@@ -112,7 +141,7 @@
       <section class="hero">
         <p class="label">Workout #${today} · ${date}</p>
         <h1 class="hero-title">Train what AI<br>lets slip.</h1>
-        <p class="hero-sub">Seven quick games, about 12 minutes. Each one works a skill that research shows heavy AI use weakens.</p>
+        <p class="hero-sub">${list.length} quick games today, about ${list.reduce((s, g) => s + (g.minutes || 2), 0)} minutes. Each one trains a real skill, backed by research. A new mix every day.</p>
         <div class="hero-progress">
           <div class="ring" style="--p:${ring}">
             <span class="ring-num">${done}<small>/${list.length}</small></span>
@@ -149,6 +178,7 @@
               </li>`;
           }).join('')}
         </ol>
+        ${games().length > list.length ? `<a class="btn btn--ghost btn--block lib-link" href="#/library">Game library · all ${games().length} games →</a>` : ''}
       </section>
 
       ${renderFitness()}
@@ -340,8 +370,9 @@
   function renderResult(stage, game, result, mode, revisit) {
     const pct = pctOf(result, game);
     const rec = dayRecord(today);
-    const next = mode === 'daily' ? nextGame(rec) : null;
-    const allDone = mode === 'daily' && !next;
+    const inWorkout = workoutGames(today).includes(game);
+    const next = mode === 'daily' && inWorkout ? nextGame(rec) : null;
+    const allDone = mode === 'daily' && inWorkout && !next;
     const headline = pct >= 0.9 ? 'Outstanding!' : pct >= 0.75 ? 'Strong work!' : pct >= 0.45 ? 'Good effort!' : 'Tough one!';
 
     stage.innerHTML = `
@@ -354,7 +385,7 @@
           ${allDone ? '<a class="btn btn--primary btn--block" href="#/done">Finish workout 🎉</a>' : ''}
           ${next ? `<a class="btn btn--primary btn--block" href="#/play/${next.id}">Next: ${next.emoji} ${BG.esc(next.name)} →</a>` : ''}
           ${mode === 'practice' ? `<button class="btn btn--primary btn--block" id="btn-again">Play again</button>` : ''}
-          <a class="btn btn--ghost btn--block" href="#/">Back to the gym</a>
+          <a class="btn btn--ghost btn--block" href="${inWorkout ? '#/' : '#/library'}">${inWorkout ? 'Back to the gym' : 'Back to the library'}</a>
           ${mode === 'daily' ? `<a class="small center" href="#/practice/${game.id}">Practice this game (unlimited)</a>` : ''}
         </div>
       </div>`;
@@ -378,7 +409,7 @@
 
   // ---------- Workout summary ----------
   function shareText(rec) {
-    const list = games();
+    const list = workoutGames(today);
     const total = list.reduce((s, g) => s + (rec.results[g.id] ? rec.results[g.id].score : 0), 0);
     const grid = list.map((g) => `${g.emoji}${rec.results[g.id] ? tile(pctOf(rec.results[g.id], g)) : '⬜'}`).join(' ');
     const calib = BG.bet.calibrationScore();
@@ -388,8 +419,8 @@
 
   function renderDone() {
     const rec = dayRecord(today);
-    const list = games();
-    if (!rec.completed) {
+    const list = workoutGames(today).filter((g) => rec.results[g.id]);
+    if (!rec.completed || !list.length) {
       location.hash = '#/';
       return;
     }
@@ -443,6 +474,53 @@
     };
     const timer = setInterval(tick, 1000);
     tick();
+  }
+
+  // ---------- Library ----------
+  function bestScore(id) {
+    let best = null;
+    for (let n = today; n >= 1 && n > today - 60; n--) {
+      const r = dayRecord(n).results[id];
+      if (r && (best == null || r.score > best)) best = r.score;
+    }
+    return best;
+  }
+
+  function renderLibrary() {
+    const rec = dayRecord(today);
+    const inToday = new Set(workoutGames(today).map((g) => g.id));
+    view.innerHTML = `
+      <section class="library">
+        <p class="label">Game library</p>
+        <h1 class="hero-title lib-title">Every game, any time.</h1>
+        <p class="hero-sub">Today's workout picks ${WORKOUT_SIZE} of these. Play any of the others whenever you like. Your first play of the day counts towards your stats.</p>
+        ${CATEGORIES.map((c) => {
+          const list = games().filter((g) => catOf(g) === c.id);
+          if (!list.length) return '';
+          return `
+            <div class="lib-cat">
+              <h2 class="section-title">${c.emoji} ${c.name}</h2>
+              <p class="muted lib-blurb">${c.blurb}</p>
+              <div class="lib-grid">
+                ${list.map((g) => {
+                  const r = rec.results[g.id];
+                  const best = bestScore(g.id);
+                  return `
+                    <a class="lib-card${r ? ' is-done' : ''}" href="#/play/${g.id}">
+                      <span class="lib-emoji" aria-hidden="true">${g.emoji}</span>
+                      <span class="lib-name">${BG.esc(g.name)}</span>
+                      <span class="lib-skill">${BG.esc(g.skill)}</span>
+                      <span class="lib-meta">
+                        ${inToday.has(g.id) ? '<span class="chip">Today</span>' : ''}
+                        ${r ? `<span class="chip chip--ok">${tile(pctOf(r, g))} ${r.score}</span>` : best != null ? `<span class="chip chip--gold">Best ${best}</span>` : `<span class="ex-min">${g.minutes || 2} min</span>`}
+                      </span>
+                    </a>`;
+                }).join('')}
+              </div>
+            </div>`;
+        }).join('')}
+        <a class="btn btn--ghost btn--block" href="#/">Back to today's workout</a>
+      </section>`;
   }
 
   // ---------- Stats ----------

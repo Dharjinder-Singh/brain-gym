@@ -116,6 +116,27 @@
 .done-list li .big-num { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
 .countdown { color: var(--ink-2); margin: 14px 0; }
 
+/* ---------- Library ---------- */
+.lib-link { margin-top: 12px; }
+.library { padding-top: 14px; }
+.lib-title { font-size: clamp(32px, 8vw, 44px); }
+.lib-cat { margin-top: 26px; }
+.lib-cat .section-title { margin-bottom: 2px; }
+.lib-blurb { margin: 0 0 12px; font-size: 14.5px; }
+.lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.lib-card {
+  display: flex; flex-direction: column; gap: 2px; padding: 14px; border-radius: var(--radius);
+  background: var(--card); border: 1.5px solid var(--card-border); box-shadow: var(--shadow);
+  text-decoration: none; color: var(--ink); transition: transform .15s ease, border-color .15s ease;
+}
+.lib-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.lib-card.is-done { background: var(--ok-soft); border-color: transparent; }
+.lib-emoji { font-size: 30px; line-height: 1.2; }
+.lib-name { font-weight: 700; margin-top: 4px; }
+.lib-skill { font-size: 12.5px; color: var(--ink-3); line-height: 1.3; }
+.lib-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
+.footer-lib { font-weight: 600; }
+
 /* ---------- Stats ---------- */
 .stat-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-bottom: 8px; }
 .stat-tiles .big-num { display: block; font-size: 24px; }
