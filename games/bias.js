@@ -338,7 +338,7 @@
         }
 
         // Dramatic pause, then the stamp.
-        scene.classList.add('is-thinking');
+        scene.classList.add('is-thinking', 'is-answered');
         await wait(450);
         if (!ctx.alive) return;
         scene.classList.remove('is-thinking');

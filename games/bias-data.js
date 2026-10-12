@@ -105,7 +105,7 @@ window.BG_DATA_BIAS = {
       },
     },
     {
-      id: 'anc4', bias: 'anchoring', emoji: '✖️',
+      id: 'anc4', bias: 'anchoring', emoji: '👩‍🏫',
       setup: 'Mrs. Kulkarni writes on the board: 1 × 2 × 3 × 4 × 5 × 6 × 7 × 8. "Five seconds. No working out. Gut feeling only!"',
       step1: {
         type: 'slider', q: 'Gut estimate: what does it come to?',

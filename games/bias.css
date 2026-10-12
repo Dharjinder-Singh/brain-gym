@@ -34,6 +34,7 @@
   font-size: 26px; background: var(--accent-soft);
 }
 .g-bias .bz-gut { color: var(--accent); }
+.g-bias .bz-scene.is-answered .bz-gut { visibility: hidden; }
 .g-bias .bz-setup { margin: 0; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
 .g-bias .bz-q { margin: 2px 0 0; font-family: var(--font-display); font-weight: 700; font-size: 19px; line-height: 1.3; }
 .g-bias .bz-scene.is-thinking { box-shadow: 0 0 0 3px var(--gold-soft), var(--shadow); border-color: var(--gold); }
@@ -43,7 +44,7 @@
   position: absolute; right: 10px; top: 10px; z-index: 2; pointer-events: none; white-space: nowrap;
   max-width: calc(100% - 20px); overflow: hidden; text-overflow: ellipsis;
   padding: 4px 10px; border: 3px solid var(--accent); border-radius: 8px; background: var(--card);
-  color: var(--accent); font-family: var(--font-display); font-weight: 900; font-size: 16px; letter-spacing: .03em;
+  color: var(--accent); font-family: var(--font-display); font-weight: 900; font-size: 15px; letter-spacing: .02em;
   transform: rotate(-6deg); box-shadow: var(--shadow-lift);
   animation: bz-stamp .45s cubic-bezier(.2,.9,.3,1.3) both;
 }
@@ -75,8 +76,8 @@
   font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--ink-3); border: 1px solid var(--line);
 }
 .g-bias .bz-opt.is-picked { opacity: 1; border-color: var(--accent); background: var(--accent-soft); }
-.g-bias .bz-opt.is-good { opacity: 1; border-color: var(--ok); background: var(--ok-soft); box-shadow: 0 0 0 3px var(--ok-soft), var(--shadow); }
-.g-bias .bz-opt.is-trap { opacity: 1; border-color: var(--bad); background: var(--bad-soft); border-style: dashed; }
+.g-bias .bz-opts .bz-opt.is-good { opacity: 1; border-color: var(--ok); background: var(--ok-soft); box-shadow: 0 0 0 3px var(--ok-soft), var(--shadow); }
+.g-bias .bz-opts .bz-opt.is-trap { opacity: 1; border-color: var(--bad); background: var(--bad-soft); border-style: dashed; }
 .g-bias .bz-opt.is-good::after, .g-bias .bz-opt.is-trap::after {
   flex: none; font-size: 18px; content: '✅';
 }
