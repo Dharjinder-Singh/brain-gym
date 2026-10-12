@@ -29,6 +29,8 @@
   const patternOf = (ch) => MORSE[String(ch).toUpperCase()] || '';
   const decodePattern = (p) => DECODE[p] || null;
   const patText = (p) => p.replace(/\./g, '·').replace(/-/g, '–');
+  // How operators say it: R = "di-dah-dit".
+  const sayIt = (p) => [...p].map((s, i) => (s === '-' ? 'dah' : i === p.length - 1 ? 'dit' : 'di')).join('-');
 
   // Farnsworth: characters at `wpm`, extra space between characters/words so the
   // overall speed is `eff` WPM (ARRL formula). Returns tone segments [start, dur] in ms.
@@ -156,7 +158,7 @@
     return { word: out.join(''), real: false };
   }
 
-  const engine = { KOCH, MORSE, DECODE, patternOf, decodePattern, patText, timeline, effWpm, createKeyer, letterWeight, updateAcc, pickWeighted, makeWord, WORDS, DIT_MAX, CHAR_GAP };
+  const engine = { KOCH, MORSE, DECODE, patternOf, decodePattern, patText, sayIt, timeline, effWpm, createKeyer, letterWeight, updateAcc, pickWeighted, makeWord, WORDS, DIT_MAX, CHAR_GAP };
   if (typeof module !== 'undefined' && module.exports) module.exports = engine;
   if (typeof window === 'undefined' || !window.BG) return;
 
@@ -541,7 +543,7 @@
             </div>`);
           card.querySelector('.g-morse-reveal-title b').textContent = c;
           card.querySelector('.g-morse-reveal-big').textContent = c;
-          card.querySelector('.g-morse-reveal-say').textContent = `${patText(patternOf(c))}  · listen for the rhythm, not the count.`;
+          card.querySelector('.g-morse-reveal-say').textContent = `Say it: “${sayIt(patternOf(c))}”. Learn the rhythm, don't count.`;
           body.innerHTML = '';
           body.appendChild(card);
           showGlyph(c, patternOf(c), 'new');
@@ -581,7 +583,7 @@
         clearInput();
         roundEl.textContent = `Session ${session} · ${level}/${KOCH.length} letters`;
         countEl.textContent = '📡';
-        showGlyph('', '');
+        showGlyph('📡', '');
         say(firstTime ? 'Welcome, operator. Two letters to start.' : 'Your letters, at full speed. Hear the rhythm.');
         const show = fresh.length ? fresh : [newest()];
         const sos = ['S', 'O'].map((c) => `${c}${KOCH.indexOf(c) < level ? ' ✓' : ' 🔒'}`).join(' · ');
@@ -1065,6 +1067,7 @@
         saveLetters();
 
         roundEl.textContent = 'Session complete';
+        say('');
         countEl.textContent = `${pct}%`;
         streakEl.hidden = true;
         showGlyph('', '');
