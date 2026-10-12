@@ -1,0 +1,146 @@
+/* ---------- Top bar ---------- */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1100px; margin: 0 auto; padding: 14px 16px 0;
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand-mark {
+  width: 36px; height: 36px; border-radius: 11px; background: var(--accent); display: grid; place-items: center;
+  font-size: 20px; box-shadow: var(--shadow);
+}
+.brand-name { font-family: var(--font-display); font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
+.topbar-actions { display: flex; align-items: center; gap: 10px; }
+.streak-chip {
+  font-family: var(--font-mono); font-weight: 700; font-size: 14px; padding: 8px 12px; border-radius: 999px;
+  background: var(--gold-soft); color: var(--ink);
+}
+
+.view { max-width: 640px; margin: 0 auto; padding: 8px 16px 24px; outline: none; }
+.section-title { font-family: var(--font-display); font-size: 22px; margin: 0 0 12px; letter-spacing: -0.01em; }
+.small-title { font-size: 18px; margin-top: 22px; }
+.small { font-size: 13.5px; }
+.center { display: block; text-align: center; }
+
+/* ---------- Home ---------- */
+.hero { text-align: center; padding: 18px 0 8px; }
+.hero-title {
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(36px, 9vw, 52px);
+  line-height: 1.02; letter-spacing: -0.03em; margin: 8px 0 10px;
+}
+.hero-sub { color: var(--ink-2); margin: 0 auto 18px; max-width: 460px; }
+.hero-progress { display: flex; align-items: center; justify-content: center; gap: 22px; margin-bottom: 18px; }
+.ring {
+  --p: 0; width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; flex: none;
+  background: conic-gradient(var(--accent) calc(var(--p) * 1%), var(--line) 0);
+}
+.ring-num {
+  width: 72px; height: 72px; border-radius: 50%; background: var(--bg); display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-weight: 700; font-size: 26px;
+}
+.ring-num small { font-size: 14px; color: var(--ink-3); }
+.hero-stats { display: grid; gap: 6px; text-align: left; }
+.hero-stats .big-num { font-size: 22px; display: block; line-height: 1.1; }
+.home-cta { max-width: 420px; margin: 0 auto; }
+
+.exercises { margin-top: 26px; }
+.ex-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ex-card {
+  display: grid; grid-template-columns: 22px 46px 1fr auto; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: var(--radius); background: var(--card); border: 1.5px solid var(--card-border);
+  box-shadow: var(--shadow); text-decoration: none; color: var(--ink); transition: transform .15s ease, border-color .15s ease;
+}
+.ex-card:hover { transform: translateY(-1px); border-color: var(--accent); }
+.ex-card.is-done { background: var(--ok-soft); border-color: transparent; }
+.ex-num { font-family: var(--font-mono); font-weight: 700; color: var(--ink-3); font-size: 13px; }
+.ex-emoji { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; font-size: 24px; background: var(--accent-soft); }
+.ex-card.is-done .ex-emoji { background: transparent; }
+.ex-name { display: block; font-weight: 700; }
+.ex-skill { display: block; font-size: 13px; color: var(--ink-3); }
+.ex-done { font-family: var(--font-mono); font-weight: 700; }
+.ex-min { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); }
+
+.fitness, .why, .stats, .science { margin-top: 24px; }
+.fit-row { display: grid; grid-template-columns: minmax(0, 1.4fr) 1fr 34px; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 14px; }
+.fit-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fit-bar { height: 10px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.fit-bar > span { display: block; height: 100%; background: var(--ok); border-radius: 999px; transition: width .6s ease; }
+.fit-bar--gold > span { background: var(--gold); }
+.fit-num { font-family: var(--font-mono); font-weight: 700; text-align: right; }
+.fit-row--calib { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.why p { color: var(--ink-2); }
+
+/* ---------- Game shell ---------- */
+.game-shell { padding-top: 6px; }
+.game-head { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px; }
+.game-title { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.game-emoji { font-size: 28px; }
+.game-name { display: block; font-family: var(--font-display); font-weight: 700; font-size: 19px; line-height: 1.15; }
+.game-skill { display: block; font-size: 12.5px; color: var(--ink-3); }
+.game-score { text-align: right; }
+.game-score .label { display: block; font-size: 10px; }
+.game-score .big-num { font-size: 24px; display: inline-block; }
+.game-dots { display: flex; justify-content: center; gap: 6px; min-height: 8px; margin: 12px 0 14px; }
+.dot-step { width: 28px; height: 6px; border-radius: 999px; background: var(--line); transition: background-color .3s ease; }
+.dot-step.is-done { background: var(--ok); }
+.dot-step.is-current { background: var(--accent); }
+.game-stage { min-height: 320px; }
+
+.intro { text-align: center; padding: 26px 20px 22px; animation: rise .35s cubic-bezier(.2,.8,.2,1); }
+.intro-emoji { font-size: 56px; line-height: 1; margin-bottom: 6px; }
+.intro-title { font-family: var(--font-display); font-size: 30px; margin: 0 0 4px; }
+.intro-tag { color: var(--ink-2); margin: 0 0 16px; font-size: 17px; }
+.intro-how { text-align: left; margin: 0 auto 16px; padding-left: 22px; max-width: 420px; color: var(--ink-2); }
+.intro-how li { margin-bottom: 6px; }
+.intro-science {
+  text-align: left; background: var(--board); border-radius: 14px; padding: 12px 14px; margin: 0 auto 18px; max-width: 460px;
+}
+.intro-science p { margin: 4px 0 0; font-size: 14px; color: var(--ink-2); }
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.result { text-align: center; padding: 26px 20px; animation: rise .35s cubic-bezier(.2,.8,.2,1); }
+.result-tile { font-size: 48px; line-height: 1; }
+.result-score { margin: 6px 0; }
+.result-score .big-num { font-size: 48px; }
+.result-summary { font-size: 17px; color: var(--ink-2); margin: 4px 0 20px; }
+.result-actions { display: grid; gap: 10px; max-width: 380px; margin: 0 auto; }
+
+/* ---------- Done ---------- */
+.done { text-align: center; padding: 28px 20px; margin-top: 12px; }
+.done-badge { font-size: 64px; line-height: 1; animation: fx-pop .6s cubic-bezier(.2,.8,.2,1.3); }
+.done-title { font-family: var(--font-display); font-size: 48px; margin: 4px 0; }
+.done-list { list-style: none; padding: 0; margin: 18px 0; text-align: left; display: grid; gap: 8px; }
+.done-list li {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 10px 12px; border-radius: 12px; background: var(--board);
+}
+.done-list li .muted { grid-column: 1; grid-row: 2; }
+.done-list li .big-num { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+.countdown { color: var(--ink-2); margin: 14px 0; }
+
+/* ---------- Stats ---------- */
+.stat-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-bottom: 8px; }
+.stat-tiles .big-num { display: block; font-size: 24px; }
+.calib-row {
+  display: grid; grid-template-columns: 1fr auto; gap: 0 10px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px;
+}
+.calib-row .big-num { font-size: 20px; grid-row: 1 / span 2; grid-column: 2; align-self: center; }
+.calib-row .small { grid-column: 1; }
+
+/* ---------- Science ---------- */
+.science-list { list-style: none; padding: 0; margin: 16px 0; display: grid; gap: 14px; }
+.science-list li { display: grid; grid-template-columns: 36px 1fr; gap: 10px; }
+.science-emoji { font-size: 26px; }
+.science-list p { margin: 2px 0 0; color: var(--ink-2); font-size: 14.5px; }
+
+.footer {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px;
+  padding: 28px 16px 40px; color: var(--ink-3); font-size: 13px;
+}
+.footer a { color: var(--ink-2); text-decoration: none; }
+.footer a:hover { color: var(--accent); }
+.dot { opacity: .5; }
+
+@media (max-width: 400px) {
+  .ex-card { grid-template-columns: 18px 40px 1fr auto; gap: 10px; padding: 10px 12px; }
+  .ex-emoji { width: 40px; height: 40px; font-size: 21px; }
+  .stat-tiles .big-num { font-size: 20px; }
+}

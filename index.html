@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Brain Gym – Daily Workout for an AI-Proof Brain</title>
+  <meta name="description" content="Six quick games a day that train the skills research shows heavy AI use weakens: catching AI mistakes, original ideas, memory, persistence, mental maps and knowing what you know.">
+  <meta name="theme-color" content="#faf5ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16141a" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Brain Gym – Daily Workout for an AI-Proof Brain">
+  <meta property="og:description" content="Six quick games a day that train the skills heavy AI use weakens.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="games/datewise.css">
+  <link rel="stylesheet" href="games/catchbot.css">
+  <link rel="stylesheet" href="games/recall.css">
+  <link rel="stylesheet" href="games/digits.css">
+  <link rel="stylesheet" href="games/mentalmap.css">
+  <link rel="stylesheet" href="games/onlyyou.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#/" aria-label="Brain Gym home">
+      <span class="brand-mark" aria-hidden="true">🧠</span>
+      <span class="brand-name">Brain Gym</span>
+    </a>
+    <div class="topbar-actions">
+      <span class="streak-chip" id="streak-chip" title="Workout streak" hidden></span>
+      <button class="icon-btn" id="btn-sound" aria-label="Toggle sound"></button>
+    </div>
+  </header>
+
+  <main id="view" class="view" tabindex="-1"></main>
+
+  <footer class="footer">
+    <span>© 2026 Brain Gym</span>
+    <span class="dot">·</span>
+    <a href="#/science">The science</a>
+    <span class="dot">·</span>
+    <a href="#/stats">Your stats</a>
+  </footer>
+
+  <script src="js/core.js"></script>
+  <script src="games/datewise-data.js"></script>
+  <script src="games/datewise.js"></script>
+  <script src="games/catchbot-data.js"></script>
+  <script src="games/catchbot.js"></script>
+  <script src="games/recall-data.js"></script>
+  <script src="games/recall.js"></script>
+  <script src="games/digits.js"></script>
+  <script src="games/mentalmap.js"></script>
+  <script src="games/onlyyou-data.js"></script>
+  <script src="games/onlyyou.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

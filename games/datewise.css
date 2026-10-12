@@ -1,0 +1,53 @@
+.g-datewise .dw-board { padding: 12px 10px; }
+.g-datewise .dw-axis {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-3); text-align: center; padding: 2px 0 10px;
+}
+.g-datewise .dw-axis:last-child { padding: 10px 0 2px; }
+.g-datewise .dw-axis span { color: var(--accent); margin-right: 4px; }
+.g-datewise .dw-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; position: relative; }
+.g-datewise .dw-cards::before {
+  content: ""; position: absolute; left: 31px; top: 6px; bottom: 6px; width: 2px;
+  background: repeating-linear-gradient(var(--accent) 0 6px, transparent 6px 12px); opacity: .35;
+}
+.g-datewise .dw-card {
+  position: relative; z-index: 1; display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 12px;
+  min-height: 66px; padding: 10px 12px 10px 10px; border-radius: var(--radius);
+  background: var(--card); border: 1.5px solid var(--card-border); box-shadow: var(--shadow);
+  cursor: grab; user-select: none; -webkit-user-select: none; touch-action: none;
+  transition: border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+.g-datewise .dw-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.g-datewise .dw-emoji { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; font-size: 21px; background: var(--accent-soft); }
+.g-datewise .dw-body { min-width: 0; }
+.g-datewise .dw-title { display: block; font-weight: 600; font-size: 15.5px; line-height: 1.3; }
+.g-datewise .dw-cat { display: block; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-top: 3px; }
+.g-datewise .dw-side { display: flex; align-items: center; gap: 8px; }
+.g-datewise .dw-hint { min-width: 30px; height: 30px; border-radius: 999px; display: none; place-items: center; font-weight: 700; }
+.g-datewise .dw-year { display: none; font-family: var(--font-mono); font-weight: 700; font-size: 14px; padding: 4px 10px; border-radius: 999px; background: var(--ink); color: var(--bg); }
+.g-datewise .dw-grip { color: var(--ink-3); font-size: 18px; letter-spacing: -2px; }
+.g-datewise .dw-card.is-selected { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow); }
+.g-datewise .dw-card.is-target { border-color: var(--accent); border-style: dashed; background: var(--accent-soft); }
+.g-datewise .dw-card.is-dragging { z-index: 10; cursor: grabbing; box-shadow: var(--shadow-lift); pointer-events: none; transition: none; }
+.g-datewise .dw-card.is-ok { border-color: var(--ok); background: var(--ok-soft); cursor: default; }
+.g-datewise .dw-card.is-ok .dw-emoji { background: transparent; }
+.g-datewise .dw-card.is-ok .dw-grip { visibility: hidden; }
+.g-datewise .dw-card.is-ok .dw-hint { display: grid; background: var(--ok); color: #fff; }
+.g-datewise .dw-card.is-up .dw-hint, .g-datewise .dw-card.is-down .dw-hint { display: grid; background: var(--warn-soft); color: var(--warn); }
+.g-datewise .dw-card.is-revealed { cursor: default; }
+.g-datewise .dw-card.is-revealed .dw-year { display: inline-block; }
+.g-datewise .dw-card.is-revealed .dw-grip { display: none; }
+.g-datewise .dw-card.is-missed { border-color: var(--bad); }
+.g-datewise .dw-history { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 14px 0 10px; }
+.g-datewise .dw-history:empty { display: none; }
+.g-datewise .dw-hrow { display: flex; gap: 3px; }
+.g-datewise .dw-hcell { width: 14px; height: 14px; border-radius: 4px; background: var(--warn); opacity: .5; }
+.g-datewise .dw-hcell.ok { background: var(--ok); opacity: 1; }
+.g-datewise .dw-lock { margin-top: 14px; }
+.g-datewise .dw-tip { text-align: center; font-size: 13.5px; margin: 10px 0 0; }
+@media (max-width: 400px) {
+  .g-datewise .dw-card { grid-template-columns: 38px 1fr auto; gap: 10px; }
+  .g-datewise .dw-emoji { width: 38px; height: 38px; font-size: 19px; }
+  .g-datewise .dw-cards::before { left: 29px; }
+  .g-datewise .dw-title { font-size: 15px; }
+}

@@ -1,0 +1,103 @@
+/* Make the Number (digits) */
+.g-digits { display: flex; flex-direction: column; gap: 12px; max-width: 520px; margin: 0 auto; padding-bottom: 16px; }
+
+.g-digits-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.g-digits-clock { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+.g-digits-targetbox { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.g-digits-target {
+  font-size: clamp(56px, 18vw, 84px); line-height: 1; color: var(--accent); letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.g-digits-board { padding: 14px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: border-color .3s ease, box-shadow .3s ease; }
+.g-digits-board.is-solved { border-color: var(--ok); box-shadow: 0 0 0 4px var(--ok-soft); }
+
+.g-digits-tiles {
+  display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(56px, 80px)); gap: 8px; justify-content: center;
+  width: 100%;
+}
+.g-digits-tile {
+  width: 100%; aspect-ratio: 1; min-height: 56px; border-radius: 16px; border: 2px solid var(--card-border);
+  background: var(--card); color: var(--ink); box-shadow: var(--shadow); cursor: pointer;
+  font-family: var(--font-mono); font-weight: 700; font-size: 28px; line-height: 1;
+  display: grid; place-items: center; padding: 0; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  transition: transform .26s cubic-bezier(.2,.8,.2,1), box-shadow .15s ease, border-color .15s ease, background-color .15s ease, opacity .22s ease;
+}
+.g-digits-tile--d3 { font-size: 23px; }
+.g-digits-tile--d4 { font-size: 18px; }
+.g-digits-tile--made { background: var(--blue-soft); border-color: var(--blue); color: var(--blue); }
+.g-digits-tile:hover { border-color: var(--ink-3); }
+.g-digits-tile:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.g-digits-tile.is-selected {
+  transform: translateY(-8px) scale(1.06); border-color: var(--accent); background: var(--accent-soft); color: var(--accent);
+  box-shadow: var(--shadow-lift);
+}
+.g-digits-tile.is-flying { z-index: 2; pointer-events: none; transition: transform .22s cubic-bezier(.5,0,.75,0), opacity .22s ease; }
+.g-digits-tile.is-catching { transform: scale(1.1); border-color: var(--accent); }
+.g-digits-tile.is-hint { animation: g-digits-pulse 1s ease-in-out infinite; border-color: var(--gold); }
+.g-digits-tile.is-win {
+  background: var(--ok); color: var(--bg); border-color: var(--ok);
+  animation: g-digits-glow 1.2s ease-out 1; box-shadow: 0 0 0 6px var(--ok-soft), var(--shadow-lift);
+}
+.g-digits-born { animation: g-digits-born .38s cubic-bezier(.2,.8,.2,1.4); }
+@keyframes g-digits-born { 0% { transform: scale(.4); opacity: 0; } 60% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes g-digits-pulse { 0%, 100% { box-shadow: 0 0 0 0 var(--gold-soft); } 50% { box-shadow: 0 0 0 8px var(--gold-soft); } }
+@keyframes g-digits-glow { 0% { transform: scale(1); } 30% { transform: scale(1.25) rotate(-4deg); } 60% { transform: scale(.95) rotate(2deg); } 100% { transform: scale(1); } }
+
+.g-digits-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; min-height: 0; }
+.g-digits-steps:empty { display: none; }
+.g-digits-step {
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-2); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; animation: g-digits-born .3s ease;
+}
+.g-digits-step b { color: var(--ink); }
+
+.g-digits-ops { display: flex; justify-content: center; gap: 12px; }
+.g-digits-op {
+  width: 62px; height: 62px; border-radius: 50%; border: 2px solid var(--line); background: var(--surface);
+  color: var(--ink); font-size: 30px; font-weight: 700; line-height: 1; cursor: pointer; box-shadow: var(--shadow);
+  display: grid; place-items: center; padding: 0; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  transition: transform .12s ease, background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.g-digits-op:active { transform: scale(.92); }
+.g-digits-op:hover { border-color: var(--ink-3); }
+.g-digits-op.is-on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); transform: scale(1.08); }
+.g-digits-op.is-hint { animation: g-digits-pulse 1s ease-in-out infinite; border-color: var(--gold); }
+
+.g-digits-msg {
+  margin: 0; min-height: 44px; text-align: center; font-size: 14.5px; color: var(--ink-2); padding: 0 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.g-digits-msg--bad { color: var(--bad); font-weight: 600; }
+.g-digits-msg--good { color: var(--ok); font-weight: 700; font-size: 17px; }
+.g-digits-msg--nudge { color: var(--ink); font-style: italic; }
+.g-digits-msg--hint { color: var(--warn); font-weight: 700; font-family: var(--font-mono); font-size: 14px; }
+
+.g-digits-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.g-digits-actions .btn { min-height: 44px; padding: 0 10px; }
+.g-digits-actions .btn:disabled { opacity: .45; cursor: not-allowed; }
+.g-digits-hint:not(:disabled) { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+.g-digits-hint { font-variant-numeric: tabular-nums; }
+.g-digits-hint, .g-digits-skip { grid-column: 1 / -1; }
+
+.g-digits-card { display: flex; flex-direction: column; gap: 10px; align-items: stretch; animation: g-digits-born .3s ease; }
+.g-digits-chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; min-height: 28px; }
+.g-digits-chip { font-family: var(--font-mono); font-size: 13.5px; }
+.g-digits-badge {
+  align-self: center; font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--gold);
+  background: var(--gold-soft); border: 2px solid var(--gold); border-radius: 999px; padding: 6px 18px;
+  opacity: 0; transform: scale(.3) rotate(-12deg);
+}
+.g-digits-badge.is-in { animation: g-digits-badge .6s cubic-bezier(.2,.8,.2,1.5) forwards; }
+@keyframes g-digits-badge { to { opacity: 1; transform: scale(1) rotate(-3deg); } }
+.g-digits-note { margin: 0; text-align: center; color: var(--ink-2); font-size: 14.5px; }
+.g-digits-sol { margin: 0; text-align: center; font-family: var(--font-mono); font-weight: 700; font-size: 14.5px; color: var(--ink); }
+
+@media (min-width: 560px) {
+  .g-digits-actions { grid-template-columns: repeat(4, 1fr); }
+  .g-digits-hint, .g-digits-skip { grid-column: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .g-digits-badge.is-in { opacity: 1; transform: none; }
+}
