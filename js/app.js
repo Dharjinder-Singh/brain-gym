@@ -318,7 +318,8 @@
         if (finished || !ctx.alive) return;
         finished = true;
         const final = {
-          score: Math.max(0, Math.round(ctx.score)),
+          // Cap at the game's max so no single game can dominate the daily total.
+          score: Math.max(0, Math.min(game.maxScore || Infinity, Math.round(ctx.score))),
           summary: result.summary || '',
           stats: result.stats || {},
           seconds: Math.round((Date.now() - startedAt) / 1000),

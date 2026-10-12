@@ -1,0 +1,132 @@
+/* Split the Bill (bill) */
+.g-bill { position: relative; display: flex; flex-direction: column; gap: 8px; max-width: 480px; margin: 0 auto; padding-bottom: 12px; }
+
+.g-bill-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
+.g-bill-count, .g-bill-combo, .g-bill-level { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; }
+.g-bill-combo.is-hot { background: var(--accent); color: var(--accent-ink); }
+
+/* Timer: BG.timerBar lives in .g-bill-tbar, whose width shrinks when a skip costs time. */
+.g-bill-timer { position: relative; padding-top: 18px; }
+.g-bill-track { position: relative; height: 10px; border-radius: 999px; background: var(--line); }
+.g-bill-tbar { height: 10px; min-width: 6px; }
+.g-bill-tbar .timer { margin: 0; }
+.g-bill-tbar .timer-label { display: none; }
+.g-bill-secs {
+  position: absolute; right: 0; top: 0; font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.g-bill-secs.is-warn { color: var(--bad); }
+
+/* Printer + receipt */
+.g-bill-printer { position: relative; padding: 0 10px; }
+.g-bill-slot {
+  position: relative; z-index: 2; height: 14px; border-radius: 8px; background: var(--ink-3);
+  box-shadow: inset 0 -4px 0 var(--ink-2), var(--shadow);
+}
+.g-bill-paper { position: relative; z-index: 1; margin: -6px 10px 0; min-height: 178px; overflow: hidden; padding-bottom: 4px; }
+
+.g-bill-rc {
+  position: relative; background: var(--card); color: var(--ink); padding: 14px 14px 10px;
+  font-family: var(--font-mono); font-size: 13.5px; line-height: 1.45; box-shadow: var(--shadow);
+  border-left: 1.5px solid var(--card-border); border-right: 1.5px solid var(--card-border);
+}
+/* Paper-tear zigzag along the bottom */
+.g-bill-rc::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -9px; height: 10px;
+  background:
+    linear-gradient(135deg, var(--card) 33.33%, transparent 33.33%) 0 0 / 12px 10px repeat-x,
+    linear-gradient(225deg, var(--card) 33.33%, transparent 33.33%) 0 0 / 12px 10px repeat-x;
+}
+.g-bill-rhead {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-weight: 800;
+  padding-bottom: 6px; margin-bottom: 6px; border-bottom: 2px dashed var(--line); font-family: var(--font-body);
+}
+.g-bill-rno { font-family: var(--font-mono); font-weight: 600; font-size: 12px; color: var(--ink-3); }
+.g-bill-rline { display: flex; align-items: baseline; gap: 6px; }
+.g-bill-rline span { color: var(--ink-2); white-space: nowrap; }
+.g-bill-rline i { flex: 1; min-width: 10px; border-bottom: 2px dotted var(--line); transform: translateY(-4px); }
+.g-bill-rline b { font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; overflow-wrap: anywhere; }
+.g-bill-rask {
+  margin-top: 8px; padding-top: 6px; border-top: 2px dashed var(--line); text-align: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.3; color: var(--accent);
+}
+.g-bill-stamp {
+  position: absolute; right: 12px; top: 34px; padding: 2px 10px; border: 3px solid var(--ok); border-radius: 8px;
+  color: var(--ok); font-weight: 800; font-size: 18px; letter-spacing: .08em; transform: rotate(-12deg) scale(2);
+  opacity: 0; pointer-events: none; background: var(--ok-soft);
+}
+.g-bill-stamp.is-on { animation: g-bill-stamp .3s cubic-bezier(.2,.8,.2,1.4) forwards; }
+@keyframes g-bill-stamp { to { opacity: 1; transform: rotate(-12deg) scale(1); } }
+
+.g-bill-print { animation: g-bill-print .42s cubic-bezier(.25,.8,.3,1) both; }
+@keyframes g-bill-print { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+.g-bill-tear { animation: g-bill-tear .3s ease-in forwards; }
+@keyframes g-bill-tear { to { transform: translate(110%, -14px) rotate(9deg); opacity: 0; } }
+
+/* Answer display + skip */
+.g-bill-row { display: flex; align-items: stretch; gap: 8px; }
+.g-bill-display {
+  position: relative; flex: 1; min-width: 0; min-height: 60px; display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius); padding: 4px 12px;
+  font-family: var(--font-mono); font-weight: 800; font-variant-numeric: tabular-nums;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.g-bill-val { font-size: clamp(28px, 9vw, 36px); line-height: 1; letter-spacing: -0.01em; color: var(--ink); }
+.g-bill-val.is-empty { color: var(--ink-3); }
+.g-bill-val--ans { color: var(--bad); }
+.g-bill-unit { font-size: 20px; color: var(--ink-2); }
+.g-bill-retry {
+  position: absolute; left: 8px; top: 5px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--warn);
+}
+.g-bill-display.is-good { border-color: var(--ok); background: var(--ok-soft); }
+.g-bill-display.is-bad { border-color: var(--bad); background: var(--bad-soft); }
+.g-bill-skip { flex-direction: column; gap: 0; min-height: 60px; padding: 0 14px; line-height: 1.1; }
+.g-bill-skip small { font-family: var(--font-mono); font-size: 11px; color: var(--bad); font-weight: 700; }
+
+.g-bill-tip {
+  margin: 0; min-height: 56px; display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 13.5px; line-height: 1.35; color: var(--ink-2); padding: 0 4px;
+}
+.g-bill-tip--good { color: var(--ok); font-weight: 700; }
+.g-bill-tip--bad { color: var(--bad); font-weight: 600; }
+.g-bill-tip--hint { background: var(--gold-soft); color: var(--ink); border-radius: 12px; padding: 6px 10px; }
+
+/* Number pad */
+.g-bill-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.g-bill-key {
+  min-height: 56px; border-radius: 14px; border: 1.5px solid var(--card-border); background: var(--card); color: var(--ink);
+  box-shadow: 0 3px 0 var(--line); cursor: pointer; font-family: var(--font-mono); font-weight: 700; font-size: 24px;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none;
+  transition: transform .08s ease, box-shadow .08s ease, background-color .12s ease;
+}
+.g-bill-key:active, .g-bill-hit { transform: translateY(3px); box-shadow: 0 0 0 var(--line); background: var(--accent-soft); }
+.g-bill-hit { animation: g-bill-hit .14s ease; }
+@keyframes g-bill-hit { 50% { transform: translateY(3px); } }
+.g-bill-key:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.g-bill-key--del { color: var(--ink-2); font-size: 22px; }
+.g-bill-key--ok { background: var(--ok); border-color: var(--ok); color: var(--surface); box-shadow: 0 3px 0 var(--ink-3); font-size: 26px; }
+
+/* Final receipt */
+.g-bill-end { display: flex; flex-direction: column; gap: 18px; }
+.g-bill-final { padding: 16px 16px 14px; margin: 0 4px; }
+.g-bill-fhead { text-align: center; font-weight: 800; letter-spacing: .08em; padding-bottom: 8px; border-bottom: 2px dashed var(--line); margin-bottom: 8px; }
+.g-bill-fhead span { font-weight: 500; letter-spacing: .02em; color: var(--ink-3); font-size: 12px; }
+.g-bill-fline { display: grid; grid-template-columns: 20px 1fr auto; gap: 6px; align-items: baseline; padding: 2px 0; animation: g-bill-row .2s ease-out both; }
+@keyframes g-bill-row { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.g-bill-fline > span:first-child { font-weight: 800; }
+.g-bill-fline.is-ok > span:first-child, .g-bill-fline.is-half > span:first-child { color: var(--ok); }
+.g-bill-fline.is-miss > span:first-child { color: var(--bad); }
+.g-bill-fline.is-skip, .g-bill-fline.is-miss { color: var(--ink-3); }
+.g-bill-fname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-body); }
+.g-bill-ftot { margin-top: 8px; padding-top: 8px; border-top: 2px dashed var(--line); display: flex; flex-direction: column; gap: 2px; }
+.g-bill-ftot > div { display: flex; justify-content: space-between; }
+
+@media (min-width: 560px) {
+  .g-bill-key { min-height: 60px; }
+  .g-bill-rask { font-size: 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .g-bill-print, .g-bill-tear, .g-bill-fline { animation: none; }
+  .g-bill-stamp.is-on { animation: none; opacity: 1; transform: rotate(-12deg); }
+}
