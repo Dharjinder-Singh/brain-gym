@@ -15,6 +15,19 @@ A free daily brain workout: seven quick games, about 12 minutes. Each game train
 | 9 | 👥 1000 People | Understanding risk | Natural frequencies (Hoffrage et al. 2015) |
 | 10 | 🛒 Better Deal | Money maths | Financial education meta-analysis (Kaiser et al. 2022) |
 | 11 | 🚨 Scam or Legit? | Spotting scams | Game-based anti-phishing training (Sheng et al. 2007) |
+| 12 | 🧠 Bias Buster | Catching thinking traps | Debiasing game (Morewedge et al. 2015) |
+| 13 | 🎯 90% Sure | Knowing what you don't know | Calibration training (Moore et al. 2017) |
+| 14 | 🧊 Spin Doctor | Spatial thinking | Spatial training meta-analysis (Uttal et al. 2013) |
+| 15 | 🏰 Memory Palace | Memorising anything | Method of loci (Dresler et al. 2017) |
+| 16 | 🫀 Lifesaver | Acting in an emergency | AHA / Resuscitation Council UK CPR guidance, F.A.S.T. |
+| 17 | 📡 Dot Dash | Learning Morse code | Koch method + spacing (Cepeda et al. 2006) |
+| 18 | ⌨️ Type Dojo | Fast, accurate typing | How we type (Feit et al. 2016) |
+| 19 | 🫶 Name It | Naming feelings precisely | Emotional granularity (Kashdan et al. 2015) |
+| 20 | 🔎 Source Check | Checking who's behind a claim | Lateral reading (Wineburg & McGrew 2017) |
+| 21 | ⏳ Inner Clock | Sensing and planning time | Planning fallacy (Buehler et al. 1994) |
+| 22 | 🧩 Who Did What? | Step-by-step deduction | Practise the reasoning yourself (Bastani et al. 2025) |
+| 23 | 🧾 Split the Bill | Everyday mental maths | Numeracy and decisions (Peters et al. 2006) |
+| 24 | 📊 Chart Crimes | Reading charts critically | Truncated axes (Correll et al. 2020) |
 
 Games are grouped as **AI-proof brain**, **Life skills** and **Cool skills**. Each day's workout is a deterministic rotation of 5 games, one from each category first. Every game is also playable from `#/library`.
 
