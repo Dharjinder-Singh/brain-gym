@@ -44,9 +44,10 @@
         const s = log ? roundSig(v, 2) : clean(Math.round(v / step) * step);
         return clamp(s, q.min, q.max);
       },
-      // Typed values keep more precision.
+      // Typed values keep more precision (whole numbers stay whole).
       fine(v) {
-        return clamp(roundSig(v, 5), q.min, q.max);
+        const s = log ? roundSig(v, 4) : Number.isInteger(q.answer) ? Math.round(v) : roundSig(v, 5);
+        return clamp(s, q.min, q.max);
       },
     };
   }
@@ -283,8 +284,6 @@
         hHi.style.left = `${th * 100}%`;
         net.style.left = `${tl * 100}%`;
         net.style.width = `${Math.max(0, th - tl) * 100}%`;
-        // Keep the low knob reachable when both sit at the right edge.
-        hLo.classList.toggle('is-top', tl > 0.5 && th - tl < 0.08);
         [[hLo, low], [hHi, high]].forEach(([h, v]) => {
           h.setAttribute('aria-valuemin', String(board.min));
           h.setAttribute('aria-valuemax', String(board.max));
@@ -399,7 +398,7 @@
         const v = parseNum(input.value, isYear(q));
         if (Number.isFinite(v)) {
           const clamped = board.fine(v);
-          if (clamped !== v) BG.fx.toast(`This board runs from ${fmtVal(board.min, q)} to ${fmtVal(board.max, q)}`);
+          if (v < board.min || v > board.max) BG.fx.toast(`This board runs from ${fmtVal(board.min, q)} to ${fmtVal(board.max, q)}`);
           if (which === 'lo' && clamped > high) {
             high = clamped;
             low = clamped;
