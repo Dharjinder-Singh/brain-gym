@@ -1,0 +1,171 @@
+/* Type Dojo (typing) */
+.g-typing { position: relative; display: flex; flex-direction: column; gap: 10px; max-width: 600px; margin: 0 auto; padding-bottom: 16px; }
+
+.g-typing-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.g-typing-drillchip { font-family: var(--font-mono); font-size: 12.5px; }
+.g-typing-beltchip { background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); }
+.g-typing-beltdot {
+  width: 22px; height: 8px; border-radius: 3px; background: var(--belt); border: 1px solid var(--belt-edge);
+}
+
+/* Belt palette, tokens only */
+.g-typing-belt--none { --belt: var(--line); --belt-edge: var(--ink-3); }
+.g-typing-belt--white { --belt: var(--card); --belt-edge: var(--ink-3); }
+.g-typing-belt--yellow { --belt: var(--gold); --belt-edge: var(--gold); }
+.g-typing-belt--orange { --belt: var(--warn); --belt-edge: var(--warn); }
+.g-typing-belt--green { --belt: var(--ok); --belt-edge: var(--ok); }
+.g-typing-belt--blue { --belt: var(--blue); --belt-edge: var(--blue); }
+.g-typing-belt--brown { --belt: color-mix(in srgb, var(--warn) 55%, var(--ink)); --belt-edge: color-mix(in srgb, var(--warn) 55%, var(--ink)); }
+.g-typing-belt--black { --belt: var(--ink); --belt-edge: var(--ink); }
+
+.g-typing-note {
+  margin: 0; padding: 8px 12px; border-radius: 12px; background: var(--blue-soft); color: var(--blue);
+  font-size: 14px; font-weight: 600; text-align: center;
+}
+.g-typing-timer:empty { display: none; }
+.g-typing-timer .timer { margin: 18px 0 2px; }
+
+.g-typing-stage { min-height: 200px; }
+
+/* Input: 16px+ so mobile browsers never zoom on focus */
+.g-typing-inrow { display: flex; }
+.g-typing-input {
+  width: 100%; min-height: 52px; padding: 0 16px; border-radius: 14px; border: 2px solid var(--line);
+  background: var(--card); color: var(--ink); font-family: var(--font-mono); font-size: 18px; outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.g-typing-input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px var(--blue-soft); }
+.g-typing-input.is-miss { border-color: var(--bad); box-shadow: 0 0 0 4px var(--bad-soft); }
+.g-typing-input::placeholder { color: var(--ink-3); }
+.g-typing.is-blurred .g-typing-input { border-color: var(--gold); box-shadow: 0 0 0 4px var(--gold-soft); }
+.g-typing-hint { margin: 0; min-height: 20px; text-align: center; font-size: 13.5px; color: var(--ink-3); }
+.g-typing.is-blurred .g-typing-hint::before { content: "Tap the box to keep typing · "; color: var(--warn); font-weight: 600; }
+
+/* Intro card */
+.g-typing-intro { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 16px; }
+.g-typing-intro-emoji { font-size: 44px; line-height: 1.1; }
+.g-typing-intro-name { margin: 0; font-family: var(--font-display); font-size: 24px; }
+.g-typing-intro-blurb { margin: 0; color: var(--ink-2); max-width: 420px; }
+.g-typing-focus { margin: 4px 0 10px; font-size: 14px; color: var(--ink-2); }
+.g-typing-key {
+  display: inline-grid; place-items: center; min-width: 30px; height: 30px; margin: 0 3px; padding: 0 6px;
+  border-radius: 8px; border: 1.5px solid var(--line); border-bottom-width: 4px; background: var(--card);
+  font-family: var(--font-mono); font-weight: 800; font-size: 15px; color: var(--ink); text-transform: lowercase;
+}
+.g-typing-key--sm { min-width: 24px; height: 24px; font-size: 13px; border-bottom-width: 3px; }
+.g-typing-key--lg { min-width: 48px; height: 48px; font-size: 22px; border-color: var(--bad); color: var(--bad); background: var(--bad-soft); }
+
+.g-typing-count {
+  display: grid; place-items: center; min-height: 200px; font-family: var(--font-display); font-weight: 800;
+  font-size: 72px; color: var(--accent);
+}
+.g-typing-countpop { animation: g-typing-countpop .4s cubic-bezier(.2,.8,.2,1.3); }
+@keyframes g-typing-countpop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* Text drills */
+.g-typing-board { display: flex; flex-direction: column; gap: 10px; }
+.g-typing-sub { margin: 0; text-align: center; font-size: 14px; color: var(--ink-2); }
+.g-typing-box { padding: 14px 16px; height: 9.6em; overflow: hidden; font-size: 20px; cursor: text; }
+.g-typing-text {
+  position: relative; font-family: var(--font-mono); line-height: 1.6; white-space: pre-wrap; overflow-wrap: break-word;
+  color: var(--ink-3);
+}
+.g-typing-text span { border-radius: 3px; transition: color .08s ease; }
+.g-typing-text .is-ok { color: var(--ink); }
+.g-typing-text .is-bad { color: var(--bad); background: var(--bad-soft); text-decoration: underline; text-decoration-thickness: 2px; }
+.g-typing-text .is-cur { color: var(--ink); background: var(--blue-soft); box-shadow: inset 0 -3px 0 var(--blue); animation: g-typing-blink 1s steps(2) infinite; }
+@keyframes g-typing-blink { 50% { box-shadow: inset 0 -3px 0 transparent; } }
+
+.g-typing-live { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.g-typing-stat {
+  display: flex; flex-direction: column; align-items: center; padding: 8px 4px; border-radius: 14px;
+  background: var(--surface); border: 1.5px solid var(--line);
+}
+.g-typing-stat b { font-size: 24px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.g-typing-stat.is-low b { color: var(--warn); }
+
+.g-typing-done-card { text-align: center; padding: 22px 16px; }
+.g-typing-done-big { font-size: 48px; line-height: 1.1; margin: 6px 0 2px; color: var(--accent); }
+.g-typing-done-big small { font-size: 18px; color: var(--ink-3); }
+
+/* Word rain */
+.g-typing-rainwrap { display: flex; flex-direction: column; gap: 8px; }
+.g-typing-rainbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.g-typing-lives { display: inline-flex; gap: 4px; font-size: 20px; }
+.g-typing-heart { transition: transform .3s ease, opacity .3s ease, filter .3s ease; }
+.g-typing-heart.is-lost { opacity: .25; filter: grayscale(1); transform: scale(.75) rotate(-12deg); }
+.g-typing-combo { font-family: var(--font-mono); font-size: 12.5px; }
+.g-typing-sky {
+  position: relative; overflow: hidden; height: clamp(210px, 40vh, 340px); border-radius: var(--radius-lg);
+  border: 1.5px solid var(--line);
+  background: linear-gradient(180deg, var(--blue-soft), var(--board) 85%);
+  cursor: text;
+}
+.g-typing-ground {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: var(--ok); opacity: .6;
+}
+.g-typing-drop {
+  position: absolute; top: 0; left: 0; padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+  background: var(--card); border: 1.5px solid var(--card-border); box-shadow: var(--shadow);
+  font-family: var(--font-mono); font-weight: 700; font-size: 18px; color: var(--ink); will-change: transform;
+}
+.g-typing-drop-hit { color: var(--ok); }
+.g-typing-drop.is-target { border-color: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft), var(--shadow); z-index: 2; }
+.g-typing-drop.is-zap { animation: g-typing-zap .38s ease-out forwards; border-color: var(--gold); background: var(--gold-soft); }
+@keyframes g-typing-zap { 0% { scale: 1; opacity: 1; } 40% { scale: 1.35; opacity: 1; } 100% { scale: 1.8; opacity: 0; } }
+.g-typing-drop.is-splat { animation: g-typing-splat .45s ease-out forwards; border-color: var(--bad); background: var(--bad-soft); color: var(--bad); }
+@keyframes g-typing-splat { 0% { scale: 1 1; } 50% { scale: 1.3 .6; } 100% { scale: 1.4 .4; opacity: 0; } }
+.g-typing-drop.is-fade { opacity: .25; transition: opacity .4s ease; }
+.g-typing-spark {
+  position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--gold);
+  pointer-events: none; animation: g-typing-spark .55s ease-out forwards; z-index: 3;
+}
+.g-typing-spark:nth-child(odd) { background: var(--accent); }
+@keyframes g-typing-spark { from { transform: translate(0, 0) scale(1); opacity: 1; } to { transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; } }
+.g-typing-rainover {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5; text-align: center;
+  min-width: 200px; padding: 16px 20px;
+}
+
+/* Ending */
+.g-typing-end { display: flex; flex-direction: column; gap: 12px; }
+.g-typing-beltcard { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding: 18px 16px; }
+.g-typing-newbelt { font-size: 14px; }
+.g-typing-beltart {
+  position: relative; width: min(240px, 80%); height: 22px; margin: 14px 0 18px; border-radius: 5px;
+  background: var(--belt); border: 2px solid var(--belt-edge);
+}
+.g-typing-knot {
+  position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; transform: translate(-50%, -50%);
+  border-radius: 6px; background: var(--belt); border: 2px solid var(--belt-edge); box-shadow: var(--shadow);
+}
+.g-typing-knot::before, .g-typing-knot::after {
+  content: ""; position: absolute; top: 22px; width: 12px; height: 30px; border-radius: 3px;
+  background: var(--belt); border: 2px solid var(--belt-edge);
+}
+.g-typing-knot::before { left: -2px; transform: rotate(16deg); transform-origin: top center; }
+.g-typing-knot::after { right: -2px; transform: rotate(-16deg); transform-origin: top center; }
+.g-typing-beltname { font-family: var(--font-display); font-weight: 800; font-size: 26px; margin-top: 14px; }
+.g-typing-prog { width: 100%; height: 14px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.g-typing-progfill {
+  height: 100%; border-radius: 999px; background: var(--belt); transform-origin: left center;
+  transition: transform .9s cubic-bezier(.2,.8,.2,1);
+  box-shadow: inset 0 0 0 1.5px var(--belt-edge);
+}
+.g-typing-progtxt { font-weight: 700; }
+.g-typing-best { font-size: 13px; }
+.g-typing-lines { display: flex; flex-direction: column; gap: 6px; }
+.g-typing-line { display: flex; justify-content: space-between; gap: 10px; font-size: 14.5px; }
+.g-typing-line b { font-family: var(--font-mono); color: var(--ok); }
+.g-typing-weak { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.g-typing-keys { display: flex; justify-content: center; gap: 14px; }
+.g-typing-wk { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 12.5px; color: var(--ink-2); }
+.g-typing-small { margin: 0; font-size: 13.5px; }
+.g-typing-tip { margin: 0; text-align: center; font-size: 14px; color: var(--ink-2); }
+
+@media (min-width: 560px) {
+  .g-typing-box { font-size: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .g-typing-text .is-cur { animation: none; }
+}
