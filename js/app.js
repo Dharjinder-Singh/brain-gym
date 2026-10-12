@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  const ORDER = ['datewise', 'catchbot', 'recall', 'digits', 'mentalmap', 'onlyyou'];
+  const ORDER = ['datewise', 'catchbot', 'recall', 'digits', 'mentalmap', 'onlyyou', 'speak'];
   const view = document.getElementById('view');
   const today = BG.today();
   let active = null; // { destroy() } for the running game
@@ -112,7 +112,7 @@
       <section class="hero">
         <p class="label">Workout #${today} · ${date}</p>
         <h1 class="hero-title">Train what AI<br>lets slip.</h1>
-        <p class="hero-sub">Six quick games, about 10 minutes. Each one works a skill that research shows heavy AI use weakens.</p>
+        <p class="hero-sub">Seven quick games, about 12 minutes. Each one works a skill that research shows heavy AI use weakens.</p>
         <div class="hero-progress">
           <div class="ring" style="--p:${ring}">
             <span class="ring-num">${done}<small>/${list.length}</small></span>
